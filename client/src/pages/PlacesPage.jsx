@@ -17,7 +17,7 @@ export default function PlacesPage() {
         <AccountNav/>
         <div className="text-center">
           <Link
-              className="inline-flex gap-1 bg-primary text-white py-2 px-6 rounded-full"
+              className="inline-flex gap-1 px-6 py-2 text-white rounded-full bg-primary"
               to={'/account/places/new'}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                  fill="currentColor" className="w-6 h-6">
@@ -32,13 +32,13 @@ export default function PlacesPage() {
 
         <div className="mt-4">
           {places.length > 0 && places.map(place => (
-              <Link to={'/account/places/'+place._id} className="flex cursor-pointer gap-4 bg-gray-100 p-4 rounded-2xl">
-                <div className="flex w-32 h-32 bg-gray-300 grow shrink-0">
+              <Link to={'/account/places/'+place._id} className="flex gap-4 p-4 bg-gray-100 cursor-pointer rounded-2xl">
+                <div className="flex w-32 h-32 bg-gray-300 shrink-0">
                   <PlaceImg place={place}/>
                 </div>
                 <div className="grow-0 shrink">
                   <h2 className="text-xl ">{place.title}</h2>
-                  <p className="text-sm mt-2 ">{place.description}</p>
+                  <p className="mt-2 text-sm ">{place.description}</p>
 
                 </div>
               </Link>
