@@ -128,6 +128,8 @@ app.get("/profile", (req, res) => {
       let result;
       if (userData.userType === "business") {
         result = await BusinessOwner.findById(userData.id);
+      } else if(userData.userType === "admin") {
+        result = await Admin.findById(userData.id);
       } else {
         result = await User.findById(userData.id);
       }
@@ -217,7 +219,6 @@ app.post("/login/:userType", async (req, res) => {
   const userType = req.params.userType;
   let userDoc;
 
-  console.log(userType);
   if (userType === "business") {
     userDoc = await BusinessOwner.findOne({ email });
   } else {
@@ -239,7 +240,6 @@ app.post("/login/:userType", async (req, res) => {
           {},
           (err, token) => {
             if (err) throw err;
-            console.log(token);
             res.cookie("token", token).json(userDoc);
           }
       );
@@ -356,11 +356,8 @@ app.post('/places', (req, res) => {
 app.get('/user-places', (req, res) => {
 
   const {token} = req.cookies;
-  console.log(req);
-  console.log(token);
     jwt.verify(token, jwtSecret, {}, async (err, userData) => {
       // const {id} = userData.id;
-      console.log(userData);
       res.json(await Place.find({owner: userData.id}));
     });
 
@@ -536,7 +533,6 @@ app.get('/search/api', async (req, res) => {
       }
 
       const response = await axios.request(options);
-      console.log(response.data)
       const properties = response.data.data.propertySearch.properties.map(
           property => ({
             id: property.id,
