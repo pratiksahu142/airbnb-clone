@@ -367,7 +367,6 @@ app.get('/user-places', (req, res) => {
 });
 
 app.get('/user-places/:id', async (req,res) => {
-  // mongoose.connect(process.env.MONGO_URL);
   const {id} = req.params;
   res.json( await Place.find({owner:id}) );
 });
@@ -491,7 +490,7 @@ app.get('/search/api', async (req, res) => {
           locale: 'en_US',
           siteId: 300000001,
           destination: {
-            regionId: rId
+            regionId: '6054439'
           },
           checkInDate: {
             day: 20,
@@ -534,6 +533,7 @@ app.get('/search/api', async (req, res) => {
         max: maxPrice,
         min: minPrice
       }
+      options.data.destination.regionId = rId;
 
       const response = await axios.request(options);
       console.log(response.data)
@@ -563,7 +563,7 @@ async function getRegionId(location) {
     method: 'GET',
     url: 'https://hotels4.p.rapidapi.com/locations/v3/search',
     params: {
-      q: location,
+      q: 'new york',
       locale: 'en_US',
       langid: '1033',
       siteid: '300000001'
@@ -573,7 +573,7 @@ async function getRegionId(location) {
       'X-RapidAPI-Host': 'hotels4.p.rapidapi.com'
     }
   };
-
+  options.params.q = location;
   try {
     const response = await axios.request(options);
     return response.data.rid;
@@ -610,7 +610,7 @@ app.get('/search/api/details', async (req, res) => {
     const id = propertyInfo.summary.id;
     const name = propertyInfo.summary.name;
     const needToKnows = propertyInfo.summary.policies.needToKnow.body;
-    const shouldMentions = propertyInfo.summary.policies.shouldMention.body;
+    const shouldMentions = propertyInfo.summary.policies.shouldMention?.body;
     const tagline = propertyInfo.summary.tagline;
     const latitude = propertyInfo.summary.location.coordinates.latitude;
     const longitude = propertyInfo.summary.location.coordinates.longitude;
