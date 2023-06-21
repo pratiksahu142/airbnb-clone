@@ -1,4 +1,4 @@
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import BookingWidget from "./BookingWidget";
@@ -7,24 +7,39 @@ import AddressLink from "../AddressLink";
 
 export default function PlacePage() {
   const {id} = useParams();
-  const [place,setPlace] = useState(null);
+  const [place, setPlace] = useState(null);
   useEffect(() => {
-    if(!id){
+    if (!id) {
       return;
     }
-    axios.get('/places/'+id).then(response => {
+    axios.get('/places/' + id).then(response => {
       setPlace(response.data);
-    })
-  },[id]);
 
-  if(!place) return '';
+    })
+  }, [id]);
+
+  if (!place) {
+    return '';
+  }
+
+  console.log(place.owner)
 
   return (
       <div className="mt-4 bg-gray-100 -mx-8 px-8 pt-8">
         <h2 className="text-3xl ">{place.title}</h2>
         <AddressLink>{place.address}</AddressLink>
         <PlaceGallery place={place}/>
-        <div className="mt-8 mb-8 gap-8 grid grid-cols-1 md:grid-cols-[2fr_1fr]">
+        <div className="mt-4">
+          <Link
+              className=" text-white bg-primary rounded-lg py-2 px-4 "
+              to={'/profile/' + place.owner}
+          >
+            See other properties from this owner
+          </Link>
+        </div>
+
+        <div
+            className="mt-8 mb-8 gap-8 grid grid-cols-1 md:grid-cols-[2fr_1fr]">
           <div>
 
             <div className="my-4">
