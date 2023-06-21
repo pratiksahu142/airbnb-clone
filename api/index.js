@@ -19,17 +19,17 @@ const app = express();
 const bcryptSalt = bcrypt.genSaltSync(12);
 const jwtSecret = 'djfnrkjvbwc';
 const photosMiddleware = multer({dest: 'uploads'});
-
+mongoose.connect(process.env.MONGO_URL);
 
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
-app.use(cors({
-  credentials: true,
-  origin: 'http://localhost:5173',
-}));
-
-mongoose.connect(process.env.MONGO_URL);
+app.use(
+  cors({
+    credentials: true,
+    origin: ["http://localhost:3000", "http://localhost:5173"],
+  })
+);
 
 function getUserDataFromRequest(req) {
   return new Promise((resolve, reject) => {
@@ -47,7 +47,7 @@ app.get('/test', (req, res) => {
 });
 
 app.post("/register", async (req, res) => {
-  const bcryptSalt = await bcrypt.genSalt(10);
+  // const bcryptSalt = await bcrypt.genSalt(10);
   mongoose.connect(process.env.MONGO_URL);
   const {
     name,
@@ -119,7 +119,7 @@ app.post("/a/register", async (req, res) => {
 });
 
 app.get("/profile", (req, res) => {
-  mongoose.connect(process.env.MONGO_URL);
+  // mongoose.connect(process.env.MONGO_URL);
   const { token } = req.cookies;
 
   if (token) {
@@ -139,8 +139,8 @@ app.get("/profile", (req, res) => {
 });
 
 app.put("/profile", photosMiddleware.array('photos', 100), async (req, res) => {
-  const bcryptSalt = await bcrypt.genSalt(10);
-  mongoose.connect(process.env.MONGO_URL);
+  // const bcryptSalt = await bcrypt.genSalt(10);
+  // mongoose.connect(process.env.MONGO_URL);
   const {token} = req.cookies;
   let userDoc;
 
@@ -199,7 +199,7 @@ app.put("/profile", photosMiddleware.array('photos', 100), async (req, res) => {
 });
 
 app.get("/public-profile/:id", async (req, res) => {
-  mongoose.connect(process.env.MONGO_URL);
+  // mongoose.connect(process.env.MONGO_URL);
   let id = req.params.id;
   let result = await BusinessOwner.findById(id);
   res.json(result);
@@ -212,16 +212,18 @@ app.get('/business-places/:id', async (req,res) => {
 
 
 app.post("/login/:userType", async (req, res) => {
-  mongoose.connect(process.env.MONGO_URL);
+  // mongoose.connect(process.env.MONGO_URL);
   const { email, password } = req.body;
   const userType = req.params.userType;
   let userDoc;
 
+  console.log(userType);
   if (userType === "business") {
     userDoc = await BusinessOwner.findOne({ email });
   } else {
     userDoc = await User.findOne({ email });
   }
+  console.log(userDoc);
 
   if (userDoc) {
     const passOk = bcrypt.compareSync(password, userDoc.password);
@@ -237,6 +239,7 @@ app.post("/login/:userType", async (req, res) => {
           {},
           (err, token) => {
             if (err) throw err;
+            console.log(token);
             res.cookie("token", token).json(userDoc);
           }
       );
@@ -249,7 +252,7 @@ app.post("/login/:userType", async (req, res) => {
 });
 
 app.post("/a/login", async (req, res) => {
-  mongoose.connect(process.env.MONGO_URL);
+  // mongoose.connect(process.env.MONGO_URL);
   const { email, password } = req.body;
   let userDoc = await Admin.findOne({ email });
 
@@ -351,15 +354,20 @@ app.post('/places', (req, res) => {
 });
 
 app.get('/user-places', (req, res) => {
+
   const {token} = req.cookies;
-  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
-    const {id} = userData;
-    res.json(await Place.find({owner: id}));
-  });
+  console.log(req);
+  console.log(token);
+    jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+      // const {id} = userData.id;
+      console.log(userData);
+      res.json(await Place.find({owner: userData.id}));
+    });
+
 });
 
 app.get('/user-places/:id', async (req,res) => {
-  mongoose.connect(process.env.MONGO_URL);
+  // mongoose.connect(process.env.MONGO_URL);
   const {id} = req.params;
   res.json( await Place.find({owner:id}) );
 });
