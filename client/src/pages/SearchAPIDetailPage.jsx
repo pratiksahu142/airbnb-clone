@@ -84,21 +84,21 @@ export default function SearchAPIDetailPage() {
 
             <h3 className="text-lg font-semibold mb-2 mt-4 pt-4 border-t">Need to Know</h3>
             <ul className="list-disc list-inside mb-6">
-              {needToKnows.map((item) => (
+              {needToKnows && needToKnows.map((item) => (
                   <li key={item}>{item}</li>
               ))}
             </ul>
 
             <h3 className="text-lg font-semibold mb-2 pt-4 border-t">Extra Info</h3>
             <ul className="list-disc list-inside mb-6">
-              {shouldMentions.map((item) => (
+              {shouldMentions && shouldMentions.map((item) => (
                   <li key={item}>{item}</li>
               ))}
             </ul>
 
             <h3 className="text-lg font-semibold mb-2 pt-4 border-t">Amenities</h3>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {amenities.map((item, index) => (
+              {amenities && amenities.map((item, index) => (
                   <div key={index} className="border border-gray-300 rounded-2xl p-4">
                     {item}
                   </div>
@@ -112,7 +112,7 @@ export default function SearchAPIDetailPage() {
 
             <h3 className="text-lg font-semibold mb-2 pt-4 border-t">Photos</h3>
             <div onClick={() => setShowAllPhotos(true)} className="cursor-pointer grid grid-cols-2 md:grid-cols-3 gap-4">
-              {photos.map((photo, index) => (
+              {photos && photos.map((photo, index) => (
                   <div
                       key={index}
                       className="flex items-center justify-center aspect-w-1 aspect-h-1 rounded-lg overflow-hidden"

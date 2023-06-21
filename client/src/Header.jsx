@@ -15,6 +15,8 @@ export default function Header() {
   const [redirect, setRedirect] = useState('');
 
   const togglePopup = () => {
+    setKindOfStay('');
+    setMaxPrice(200);
     setIsOpen(!isOpen);
   };
 
