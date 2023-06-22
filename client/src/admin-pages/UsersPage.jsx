@@ -3,6 +3,7 @@ import axios from "axios";
 // import PlaceImg from "./pages/PlaceImg";
 import { Link } from "react-router-dom";
 import AdminNav from "./AdminNav";
+import Header from "../Header";
 
 export default function UsersPage() {
   const [users, setUsers] = useState([]);
@@ -18,7 +19,8 @@ export default function UsersPage() {
   }
 
   return (
-    <div>
+    <div className="flex flex-col min-h-screen px-8 py-4">
+      <Header/>
       <AdminNav />
       <div>
         <div className="container px-4 mx-auto sm:px-8">

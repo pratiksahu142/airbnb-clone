@@ -4,8 +4,8 @@ import { Navigate, useParams, useNavigate } from "react-router-dom";
 import PlacesPage from "./PlacesPage";
 import AccountNav from "../AccountNav";
 import Profile from "../Profile";
-import AdminNav from "../admin-pages/AdminNav";
 import Header from "../Header";
+import AdminNav from "../admin-pages/AdminNav";
 
 export default function AccountPage() {
   const [redirect, setRedirect] = useState(null);
@@ -31,22 +31,14 @@ export default function AccountPage() {
   }
 
   return (
-<<<<<<< HEAD
-      <div className="flex flex-col min-h-screen px-8 py-4">
-        <Header/>
-        {user.userType === 'admin' &&
-          <AdminNav/>
-        }
-
-        {(user.userType === 'user' || user.userType === 'business') &&
-          <AccountNav />
-        }
-        
-=======
-      <div className="flex flex-col min-h-screen px-8 py-4">
-        <Header/>
-        <AccountNav />
->>>>>>> 50bf6eb67b05bbed20eb9d568c773e3118fe254a
+    <div className="flex flex-col min-h-screen px-8 py-4">
+    <Header/>
+      {user && (
+        <>
+          {user.userType === 'admin' && <AdminNav />}
+          {(user.userType === 'user' || user.userType === 'business') && <AccountNav />}
+        </>
+      )}
         {subpage === "profile" && (
             <div className="w-full">
               {/* Logged in as {user.name} ({user.email}) */}

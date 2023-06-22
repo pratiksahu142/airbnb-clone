@@ -3,12 +3,9 @@ import AccountNav from "../AccountNav";
 import {useContext, useEffect, useState} from "react";
 import axios from "axios";
 import PlaceImg from "./PlaceImg";
-<<<<<<< HEAD
 import { UserContext } from "../UserContext";
 import AdminNav from "../admin-pages/AdminNav";
-=======
 import Header from "../Header";
->>>>>>> 50bf6eb67b05bbed20eb9d568c773e3118fe254a
 
 export default function PlacesPage() {
   const { user } = useContext(UserContext);
