@@ -4,6 +4,7 @@ import { Navigate, useParams, useNavigate } from "react-router-dom";
 import PlacesPage from "./PlacesPage";
 import AccountNav from "../AccountNav";
 import Profile from "../Profile";
+import AdminNav from "../admin-pages/AdminNav";
 
 export default function AccountPage() {
   const [redirect, setRedirect] = useState(null);
@@ -30,7 +31,14 @@ export default function AccountPage() {
 
   return (
       <div>
-        <AccountNav />
+        {user.userType === 'admin' &&
+          <AdminNav/>
+        }
+
+        {(user.userType === 'user' || user.userType === 'business') &&
+          <AccountNav />
+        }
+        
         {subpage === "profile" && (
             <div className="w-full">
               {/* Logged in as {user.name} ({user.email}) */}

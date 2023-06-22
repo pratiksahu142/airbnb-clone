@@ -7,7 +7,7 @@ import AddressLink from "../AddressLink";
 
 export default function PlacePage() {
   const {id} = useParams();
-  const [place, setPlace] = useState(null);
+  const [place, setPlace] = useState(null);  
   useEffect(() => {
     if (!id) {
       return;
@@ -22,16 +22,14 @@ export default function PlacePage() {
     return '';
   }
 
-  console.log(place.owner)
-
   return (
-      <div className="mt-4 bg-gray-100 -mx-8 px-8 pt-8">
+      <div className="px-8 pt-8 mt-4 -mx-8 bg-gray-100">
         <h2 className="text-3xl ">{place.title}</h2>
         <AddressLink>{place.address}</AddressLink>
         <PlaceGallery place={place}/>
         <div className="mt-4">
           <Link
-              className=" text-white bg-primary rounded-lg py-2 px-4 "
+              className="px-4 py-2 text-white rounded-lg bg-primary"
               to={'/profile/' + place.owner}
           >
             See other properties from this owner
@@ -43,7 +41,7 @@ export default function PlacePage() {
           <div>
 
             <div className="my-4">
-              <h2 className="font-semibold text-2xl">Description</h2>
+              <h2 className="text-2xl font-semibold">Description</h2>
               {place.description}
             </div>
             Check-in: {place.checkIn} <br/>
@@ -53,11 +51,11 @@ export default function PlacePage() {
           <div>
             <BookingWidget place={place}/>
           </div>
-          <div className="bg-white -mx-8 px-8 py-8 border-t">
+          <div className="px-8 py-8 -mx-8 bg-white border-t">
             <div>
-              <h2 className="font-semibold text-2xl">Extra Info</h2>
+              <h2 className="text-2xl font-semibold">Extra Info</h2>
             </div>
-            <div className="text-sm text-gray-700 leading-5 mb-4 mt-2">
+            <div className="mt-2 mb-4 text-sm leading-5 text-gray-700">
               {place.extraInfo}
             </div>
           </div>

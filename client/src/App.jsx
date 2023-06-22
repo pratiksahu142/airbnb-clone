@@ -18,8 +18,8 @@ import AuthGuard from "./AuthGuard";
 import PublicProfile from "./PublicProfile";
 import AdminLoginPage from "./admin-pages/AdminLoginPage";
 import UsersPage from './admin-pages/UsersPage';
-import AdminBookingsPage from './admin-pages/AdminBookingsPage';
 import NewUserPage from './admin-pages/NewUserPage';
+import EditUserPage from './admin-pages/EditUserPage';
 
 axios.defaults.baseURL = "http://localhost:4000";
 axios.defaults.withCredentials = true;
@@ -47,7 +47,7 @@ function App() {
             <Route
                 path="/account/places/new"
                 element={
-                  <AuthGuard allowedUserTypes={["business", "admin"]}>
+                  <AuthGuard allowedUserTypes={["business"]}>
                     <PlacesFormPage/>
                   </AuthGuard>
                 }
@@ -75,10 +75,10 @@ function App() {
                 }
             />
             <Route
-                path="/a/bookings"
+                path="/a/users/edit/:id"
                 element={
                   <AuthGuard allowedUserTypes={["admin"]}>
-                    <AdminBookingsPage/>
+                    <EditUserPage/>
                   </AuthGuard>
                 }
             />

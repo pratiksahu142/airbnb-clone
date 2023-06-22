@@ -1,24 +1,40 @@
 import AccountNav from "../AccountNav";
-import {useEffect, useState} from "react";
+import { useContext, useEffect, useState} from "react";
 import axios from "axios";
 import PlaceImg from "./PlaceImg";
 import {Link} from "react-router-dom";
 import BookingDates from "../BookingDates";
+import { UserContext } from "../UserContext";
+import AdminNav from "../admin-pages/AdminNav";
 
 export default function BookingsPage() {
+  const { user } = useContext(UserContext);
   const [bookings, setBookings] = useState([]);
   useEffect(() => {
-    axios.get('/bookings').then(response => {
-      setBookings(response.data);
-    });
-  }, []);
+    if(user) {
+      if(user.userType === 'admin') {
+        axios.get('/a/bookings').then(response => {
+          setBookings(response.data);
+        });
+      } else {
+        axios.get('/bookings').then(response => {
+          setBookings(response.data);
+        });
+      }
+    }
+  }, [user]);
   return (
       <div>
-        <AccountNav/>
+      {user && (
+        <>
+          {user.userType === 'admin' && <AdminNav />}
+          {(user.userType === 'user' || user.userType === 'business') && <AccountNav />}
+        </>
+      )}
         <div>
           {bookings?.length > 0 && bookings.map(booking => (
               <Link to={`/account/bookings/${booking._id}`}
-                    className="flex gap-4 bg-gray-200 rounded-2xl overflow-hidden my-2">
+                    className="flex gap-4 my-2 overflow-hidden bg-gray-200 rounded-2xl">
                 <div className="w-48">
                   <PlaceImg place={booking.place}/>
                 </div>
@@ -26,7 +42,7 @@ export default function BookingsPage() {
                   <h2 className="text-xl">{booking.place.title}</h2>
                   <div className="text-xl">
                     <BookingDates booking={booking}
-                                  className="mb-2 mt-4 text-gray-500"/>
+                                  className="mt-4 mb-2 text-gray-500"/>
                     <div className="flex gap-1">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                            viewBox="0 0 24 24" strokeWidth={1.5}

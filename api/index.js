@@ -363,6 +363,15 @@ app.get('/user-places', (req, res) => {
 
 });
 
+app.get('/a/user-places', async (req, res) => {
+  const userData = await getUserDataFromRequest(req);
+  if(userData.userType === 'admin') {
+    res.json(await Place.find());
+  } else {
+    res.sendStatus(401);
+  }
+});
+
 app.get('/user-places/:id', async (req,res) => {
   const {id} = req.params;
   res.json( await Place.find({owner:id}) );
@@ -431,6 +440,24 @@ app.get('/a/bookings', async (req, res) => {
   }
 });
 
+app.get('/a/bookings', async (req, res) => {
+  const userData = await getUserDataFromRequest(req);
+  if(userData.userType === 'admin') {
+    res.json(await Booking.find().populate('place'));
+  } else {
+    res.sendStatus(401);
+  }
+});
+
+app.get('/a/bookings', async (req, res) => {
+  const userData = await getUserDataFromRequest(req);
+  if(userData.userType === 'admin') {
+    res.json(await Booking.find().populate('place'))
+  } else {
+    res.sendStatus(401);
+  }
+});
+
 app.get('/a/users', async(req, res) => {
   const userData = await getUserDataFromRequest(req);
   if(userData.userType === 'admin') {
@@ -461,6 +488,45 @@ app.post('/a/users', async(req, res) => {
     res.sendStatus(401);
   }
 });
+
+app.put('/a/users', async(req, res) => {
+  const userData = await getUserDataFromRequest(req);
+  if(userData.userType === 'admin') {
+    console.log(req.body);
+    const {
+      id,
+      name,
+      email,
+      password
+    } = req.body;
+    const userDoc = await User.findById(id);
+    if(password.trim()) {
+      userDoc.set({
+        name, email, password: bcrypt.hashSync(password, bcryptSalt)
+      });
+    } else {
+      userDoc.set({
+        name, email
+      });
+    }
+    await userDoc.save();
+    res.json(userDoc);
+  } else {
+    res.sendStatus(401);
+  }
+});
+
+app.get('/a/users/:id', async (req, res) => {
+  const userData = await getUserDataFromRequest(req);
+  if(userData.userType === 'admin') {
+    const {id} = req.params;
+    console.log(id);
+    result = await User.findById(id);
+    res.json(result);
+  } else {
+    res.sendStatus(401);
+  }
+})
 
 app.post('/bookings', async (req, res) => {
   const userData = await getUserDataFromRequest(req);
