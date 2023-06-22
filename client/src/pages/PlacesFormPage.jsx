@@ -6,6 +6,7 @@ import AccountNav from "../AccountNav";
 import {Navigate, useParams} from "react-router-dom";
 import { UserContext } from "../UserContext";
 import Header from "../Header";
+import AdminNav from "../admin-pages/AdminNav";
 
 export default function PlacesFormPage() {
   const {id} = useParams();
@@ -95,7 +96,12 @@ export default function PlacesFormPage() {
   return (
       <div className="flex flex-col min-h-screen px-8 py-4">
         <Header/>
-          <AccountNav/>
+        {user && (
+          <>
+            {user.userType === 'admin' && <AdminNav />}
+            {(user.userType === 'user' || user.userType === 'business') && <AccountNav />}
+          </>
+        )}
           <form onSubmit={savePlace}>
             {preInput('Title',
                 'Title for your place, can be short and catchy!')}

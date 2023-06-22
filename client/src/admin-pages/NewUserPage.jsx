@@ -2,6 +2,7 @@ import { useState } from 'react';
 import UserForm from './UserForm';
 import axios from 'axios';
 import { Navigate } from 'react-router-dom';
+import Header from '../Header';
 
 const NewUserPage = () => {
   const [name, setName] = useState('');
@@ -26,12 +27,14 @@ const NewUserPage = () => {
   }
 
   return (
-    <div className="flex items-center justify-around mt-4 grow">
-        <div className="mt-40">
-        <h2 className="mb-4 text-2xl font-bold">New User Form</h2>
-        <UserForm handleSubmit={handleSubmit} name={name} setName={setName} email={email} setEmail={setEmail}
-            password={password} setPassword={setPassword} />
-        </div>
+    <div className="flex flex-col min-h-screen px-8 py-4">
+      <Header/>
+      <div className="items-center justify-around grow">
+          <div className="mt-40">
+          <UserForm handleSubmit={handleSubmit} name={name} setName={setName} email={email} setEmail={setEmail}
+              password={password} setPassword={setPassword} title={"New User Form"}/>
+          </div>
+      </div>
     </div>
   );
 };
