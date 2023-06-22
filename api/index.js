@@ -482,6 +482,28 @@ app.delete('/a/bookings/:id', async (req, res) => {
   }
 });
 
+app.delete('/a/places/:id', async (req, res) => {
+  const userData = await getUserDataFromRequest(req);
+  if(userData.userType === 'admin') {
+    const placeId = req.params.id;
+    try {
+      const result =  await Place.deleteOne({ _id: placeId });
+      await Booking.deleteMany({ place: placeId });
+  
+      if (result.deletedCount === 1) {
+        res.status(200).json({ message: 'Place deleted successfully' });
+      } else {
+        res.status(404).json({ error: 'Place not found' });
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ error: 'An error occurred while deleting the place' });
+    }
+  } else {
+    res.sendStatus(401);
+  }
+});
+
 app.get('/a/bookings', async (req, res) => {
   const userData = await getUserDataFromRequest(req);
   if (userData.userType === 'admin') {
