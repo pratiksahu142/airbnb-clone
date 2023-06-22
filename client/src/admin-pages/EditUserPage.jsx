@@ -3,6 +3,7 @@ import {Navigate, useParams} from 'react-router-dom';
 import UserForm from './UserForm';
 import axios from 'axios';
 import Header from '../Header';
+import AdminNav from './AdminNav';
 
 const EditUserPage = () => {
   const {id} = useParams();
@@ -52,8 +53,9 @@ const EditUserPage = () => {
   return (
     <div className="flex flex-col min-h-screen px-8 py-4">
       <Header/>
+      <AdminNav/>
       <div className="items-center justify-around grow">
-          <div className="mt-40">
+          <div className="mt-16">
           <UserForm handleSubmit={handleSubmit} name={name} setName={setName} email={email} setEmail={setEmail}
               password={password} setPassword={setPassword} title={"Edit User Form"}/>
           </div>
