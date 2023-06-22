@@ -1,19 +1,19 @@
 import AccountNav from "../AccountNav";
-import { useContext, useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import axios from "axios";
 import PlaceImg from "./PlaceImg";
 import {Link} from "react-router-dom";
 import BookingDates from "../BookingDates";
-import { UserContext } from "../UserContext";
+import {UserContext} from "../UserContext";
 import AdminNav from "../admin-pages/AdminNav";
 import Header from "../Header";
 
 export default function BookingsPage() {
-  const { user } = useContext(UserContext);
+  const {user} = useContext(UserContext);
   const [bookings, setBookings] = useState([]);
   useEffect(() => {
-    if(user) {
-      if(user.userType === 'admin') {
+    if (user) {
+      if (user.userType === 'admin') {
         axios.get('/a/bookings').then(response => {
           setBookings(response.data);
         });
@@ -25,14 +25,15 @@ export default function BookingsPage() {
     }
   }, [user]);
   return (
-        <div className="flex flex-col min-h-screen px-8 py-4">
-          <Header/>
-          {user && (
+      <div className="flex flex-col min-h-screen px-8 py-4">
+        <Header/>
+        {user && (
             <>
-              {user.userType === 'admin' && <AdminNav />}
-              {(user.userType === 'user' || user.userType === 'business') && <AccountNav />}
+              {user.userType === 'admin' && <AdminNav/>}
+              {(user.userType === 'user' || user.userType === 'business') &&
+                  <AccountNav/>}
             </>
-          )}
+        )}
         <div>
           {bookings?.length > 0 && bookings.map(booking => (
               <Link to={`/account/bookings/${booking._id}`}

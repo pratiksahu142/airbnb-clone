@@ -1,21 +1,20 @@
 import {Navigate, useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import axios from "axios";
-import { useContext } from "react";
 import AddressLink from "../AddressLink";
-import { UserContext } from "../UserContext";
+import {UserContext} from "../UserContext";
 import PlaceGallery from "../PlaceGallery";
 import BookingDates from "../BookingDates";
 import Header from "../Header";
 
 export default function BookingPage() {
   const {id} = useParams();
-  const { user } = useContext(UserContext);
-  const [booking,setBooking] = useState(null);
+  const {user} = useContext(UserContext);
+  const [booking, setBooking] = useState(null);
   const [redirect, setRedirect] = useState('');
   useEffect(() => {
     if (id && user) {
-      if(user.userType === 'admin') {
+      if (user.userType === 'admin') {
         axios.get('/a/bookings').then(response => {
           const foundBooking = response.data.find(({_id}) => _id === id);
           if (foundBooking) {
@@ -42,7 +41,7 @@ export default function BookingPage() {
     setRedirect('/account/bookings');
   }
 
-  if(redirect){
+  if (redirect) {
     return <Navigate to={redirect}/>
   }
 
@@ -54,7 +53,10 @@ export default function BookingPage() {
             <h1 className="text-2xl">{booking.place.title}</h1>
           </div>
           <div>
-            <button onClick={returnToBookings} className="bg-primary w-fit text-white rounded-2xl float-right py-2 px-4">Go back</button>
+            <button onClick={returnToBookings}
+                    className="bg-primary w-fit text-white rounded-2xl float-right py-2 px-4">Go
+              back
+            </button>
           </div>
 
           <AddressLink

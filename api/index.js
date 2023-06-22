@@ -25,10 +25,10 @@ app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
 app.use(
-  cors({
-    credentials: true,
-    origin: ["http://localhost:3000", "http://localhost:5173"],
-  })
+    cors({
+      credentials: true,
+      origin: ["http://localhost:3000", "http://localhost:5173"],
+    })
 );
 
 function getUserDataFromRequest(req) {
@@ -71,7 +71,7 @@ app.post("/register", async (req, res) => {
         businessAddress,
         businessWebsite,
         userType,
-        profileImg : ""
+        profileImg: ""
       });
       res.json(businessOwnerDoc);
     } catch (e) {
@@ -85,7 +85,7 @@ app.post("/register", async (req, res) => {
         email,
         password: bcrypt.hashSync(password, bcryptSalt),
         userType,
-        profileImg : ""
+        profileImg: ""
       });
       res.json(userDoc);
     } catch (e) {
@@ -120,15 +120,17 @@ app.post("/a/register", async (req, res) => {
 
 app.get("/profile", (req, res) => {
   // mongoose.connect(process.env.MONGO_URL);
-  const { token } = req.cookies;
+  const {token} = req.cookies;
 
   if (token) {
     jwt.verify(token, jwtSecret, {}, async (err, userData) => {
-      if (err) throw err;
+      if (err) {
+        throw err;
+      }
       let result;
       if (userData.userType === "business") {
         result = await BusinessOwner.findById(userData.id);
-      } else if(userData.userType === "admin") {
+      } else if (userData.userType === "admin") {
         result = await Admin.findById(userData.id);
       } else {
         result = await User.findById(userData.id);
@@ -147,18 +149,26 @@ app.put("/profile", photosMiddleware.array('photos', 100), async (req, res) => {
   let userDoc;
 
   jwt.verify(token, jwtSecret, {}, async (err, userData) => {
-    if (err) throw err;
+    if (err) {
+      throw err;
+    }
 
-    if(userData.userType === 'business') {
+    if (userData.userType === 'business') {
       userDoc = await BusinessOwner.findById(userData.id);
       const {
         name, email, password, businessName, businessContact, businessAddress,
         businessWebsite, profileImg
       } = req.body;
-      if(password.trim()) {
+      if (password.trim()) {
         userDoc.set({
-          name, email, password: bcrypt.hashSync(password, bcryptSalt), businessName, businessContact, businessAddress,
-          businessWebsite, profileImg
+          name,
+          email,
+          password: bcrypt.hashSync(password, bcryptSalt),
+          businessName,
+          businessContact,
+          businessAddress,
+          businessWebsite,
+          profileImg
         });
       } else {
         userDoc.set({
@@ -172,9 +182,12 @@ app.put("/profile", photosMiddleware.array('photos', 100), async (req, res) => {
         name, email, password, profileImg
       } = req.body;
 
-      if(password.trim()) {
+      if (password.trim()) {
         userDoc.set({
-          name, email, password: bcrypt.hashSync(password, bcryptSalt), profileImg
+          name,
+          email,
+          password: bcrypt.hashSync(password, bcryptSalt),
+          profileImg
         });
       } else {
         userDoc.set({
@@ -193,7 +206,9 @@ app.put("/profile", photosMiddleware.array('photos', 100), async (req, res) => {
         jwtSecret,
         {},
         (err, token) => {
-          if (err) throw err;
+          if (err) {
+            throw err;
+          }
           res.cookie("token", token).json(userDoc);
         }
     );
@@ -207,22 +222,21 @@ app.get("/public-profile/:id", async (req, res) => {
   res.json(result);
 });
 
-app.get('/business-places/:id', async (req,res) => {
+app.get('/business-places/:id', async (req, res) => {
   let id = req.params.id;
-  res.json( await Place.find({owner:id}) );
+  res.json(await Place.find({owner: id}));
 });
-
 
 app.post("/login/:userType", async (req, res) => {
   // mongoose.connect(process.env.MONGO_URL);
-  const { email, password } = req.body;
+  const {email, password} = req.body;
   const userType = req.params.userType;
   let userDoc;
 
   if (userType === "business") {
-    userDoc = await BusinessOwner.findOne({ email });
+    userDoc = await BusinessOwner.findOne({email});
   } else {
-    userDoc = await User.findOne({ email });
+    userDoc = await User.findOne({email});
   }
   console.log(userDoc);
 
@@ -239,7 +253,9 @@ app.post("/login/:userType", async (req, res) => {
           jwtSecret,
           {},
           (err, token) => {
-            if (err) throw err;
+            if (err) {
+              throw err;
+            }
             res.cookie("token", token).json(userDoc);
           }
       );
@@ -253,8 +269,8 @@ app.post("/login/:userType", async (req, res) => {
 
 app.post("/a/login", async (req, res) => {
   // mongoose.connect(process.env.MONGO_URL);
-  const { email, password } = req.body;
-  let userDoc = await Admin.findOne({ email });
+  const {email, password} = req.body;
+  let userDoc = await Admin.findOne({email});
 
   if (userDoc) {
     const passOk = bcrypt.compareSync(password, userDoc.password);
@@ -269,7 +285,9 @@ app.post("/a/login", async (req, res) => {
           jwtSecret,
           {},
           (err, token) => {
-            if (err) throw err;
+            if (err) {
+              throw err;
+            }
             res.cookie("token", token).json(userDoc);
           }
       );
@@ -308,15 +326,16 @@ app.post('/upload', photosMiddleware.array('photos', 100), (req, res) => {
   res.json(uploadedFiles);
 });
 
-app.post("/upload-profile-img", photosMiddleware.array('photos', 100), (req, res) => {
-  const {path, originalname} = req.files[0];
-  const parts = originalname.split('.');
-  const ext = parts[parts.length - 1];
-  const newPath = path + '.' + ext;
-  fs.renameSync(path, newPath);
-  const profileImg = newPath.replace('uploads/','');
-  res.json(profileImg);
-});
+app.post("/upload-profile-img", photosMiddleware.array('photos', 100),
+    (req, res) => {
+      const {path, originalname} = req.files[0];
+      const parts = originalname.split('.');
+      const ext = parts[parts.length - 1];
+      const newPath = path + '.' + ext;
+      fs.renameSync(path, newPath);
+      const profileImg = newPath.replace('uploads/', '');
+      res.json(profileImg);
+    });
 
 app.post('/places', (req, res) => {
   const {token} = req.cookies;
@@ -356,25 +375,25 @@ app.post('/places', (req, res) => {
 app.get('/user-places', (req, res) => {
 
   const {token} = req.cookies;
-    jwt.verify(token, jwtSecret, {}, async (err, userData) => {
-      // const {id} = userData.id;
-      res.json(await Place.find({owner: userData.id}));
-    });
+  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+    // const {id} = userData.id;
+    res.json(await Place.find({owner: userData.id}));
+  });
 
 });
 
 app.get('/a/user-places', async (req, res) => {
   const userData = await getUserDataFromRequest(req);
-  if(userData.userType === 'admin') {
+  if (userData.userType === 'admin') {
     res.json(await Place.find());
   } else {
     res.sendStatus(401);
   }
 });
 
-app.get('/user-places/:id', async (req,res) => {
+app.get('/user-places/:id', async (req, res) => {
   const {id} = req.params;
-  res.json( await Place.find({owner:id}) );
+  res.json(await Place.find({owner: id}));
 });
 
 app.get('/places/:id', async (req, res) => {
@@ -433,7 +452,7 @@ app.get('/bookings', async (req, res) => {
 
 app.get('/a/bookings', async (req, res) => {
   const userData = await getUserDataFromRequest(req);
-  if(userData.userType === 'admin') {
+  if (userData.userType === 'admin') {
     res.json(await Booking.find().populate('place'))
   } else {
     res.sendStatus(401);
@@ -442,7 +461,7 @@ app.get('/a/bookings', async (req, res) => {
 
 app.get('/a/bookings', async (req, res) => {
   const userData = await getUserDataFromRequest(req);
-  if(userData.userType === 'admin') {
+  if (userData.userType === 'admin') {
     res.json(await Booking.find().populate('place'));
   } else {
     res.sendStatus(401);
@@ -451,25 +470,25 @@ app.get('/a/bookings', async (req, res) => {
 
 app.get('/a/bookings', async (req, res) => {
   const userData = await getUserDataFromRequest(req);
-  if(userData.userType === 'admin') {
+  if (userData.userType === 'admin') {
     res.json(await Booking.find().populate('place'))
   } else {
     res.sendStatus(401);
   }
 });
 
-app.get('/a/users', async(req, res) => {
+app.get('/a/users', async (req, res) => {
   const userData = await getUserDataFromRequest(req);
-  if(userData.userType === 'admin') {
+  if (userData.userType === 'admin') {
     res.json(await User.find());
   } else {
     res.sendStatus(401);
   }
 });
 
-app.post('/a/users', async(req, res) => {
+app.post('/a/users', async (req, res) => {
   const userData = await getUserDataFromRequest(req);
-  if(userData.userType === 'admin') {
+  if (userData.userType === 'admin') {
     const {
       name,
       email,
@@ -481,7 +500,7 @@ app.post('/a/users', async(req, res) => {
       email,
       password: bcrypt.hashSync(password, bcryptSalt),
       userType,
-      profileImg : ""
+      profileImg: ""
     });
     res.json(userDoc);
   } else {
@@ -489,9 +508,9 @@ app.post('/a/users', async(req, res) => {
   }
 });
 
-app.put('/a/users', async(req, res) => {
+app.put('/a/users', async (req, res) => {
   const userData = await getUserDataFromRequest(req);
-  if(userData.userType === 'admin') {
+  if (userData.userType === 'admin') {
     console.log(req.body);
     const {
       id,
@@ -500,7 +519,7 @@ app.put('/a/users', async(req, res) => {
       password
     } = req.body;
     const userDoc = await User.findById(id);
-    if(password.trim()) {
+    if (password.trim()) {
       userDoc.set({
         name, email, password: bcrypt.hashSync(password, bcryptSalt)
       });
@@ -518,7 +537,7 @@ app.put('/a/users', async(req, res) => {
 
 app.get('/a/users/:id', async (req, res) => {
   const userData = await getUserDataFromRequest(req);
-  if(userData.userType === 'admin') {
+  if (userData.userType === 'admin') {
     const {id} = req.params;
     console.log(id);
     result = await User.findById(id);
@@ -716,13 +735,27 @@ app.get('/search/api/details', async (req, res) => {
     const tagline = propertyInfo.summary.tagline;
     const latitude = propertyInfo.summary.location.coordinates.latitude;
     const longitude = propertyInfo.summary.location.coordinates.longitude;
-    const googleMapLink = 'https://www.google.com/maps?q=' + latitude + ',' + longitude
+    const googleMapLink = 'https://www.google.com/maps?q=' + latitude + ','
+        + longitude
     const address = propertyInfo.summary.location.address.addressLine;
     const whatsAround = propertyInfo.summary.location.whatsAround.editorial.content?.[0];
-    const amenities = propertyInfo.summary.amenities.topAmenities.items.map(item => item.text);
-    const photos = propertyInfo.propertyGallery.images.map(item => item.image.url);
+    const amenities = propertyInfo.summary.amenities.topAmenities.items.map(
+        item => item.text);
+    const photos = propertyInfo.propertyGallery.images.map(
+        item => item.image.url);
 
-    const propertyData = {id, name, needToKnows, shouldMentions, tagline, googleMapLink, address, whatsAround, amenities, photos};
+    const propertyData = {
+      id,
+      name,
+      needToKnows,
+      shouldMentions,
+      tagline,
+      googleMapLink,
+      address,
+      whatsAround,
+      amenities,
+      photos
+    };
     res.json(propertyData);
 
   } catch (error) {

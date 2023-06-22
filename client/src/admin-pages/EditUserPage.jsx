@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import {useEffect, useState} from 'react';
+import {Navigate, useParams} from 'react-router-dom';
 import UserForm from './UserForm';
 import axios from 'axios';
-import { Navigate } from 'react-router-dom';
 
 const EditUserPage = () => {
   const {id} = useParams();
@@ -15,10 +14,10 @@ const EditUserPage = () => {
     e.preventDefault();
     // Handle form submission logic here, such as sending the data to an API
     const response = await axios.put("/a/users", {
-        id,
-        name,
-        email,
-        password
+      id,
+      name,
+      email,
+      password
     });
     console.log(response);
     setRedirect(true);
@@ -26,7 +25,7 @@ const EditUserPage = () => {
 
   const fetchUserData = async () => {
     try {
-        console.log(id);
+      console.log(id);
       const response = await axios.get(`/a/users/${id}`);
       console.log(response);
       if (response.data) {
@@ -45,18 +44,19 @@ const EditUserPage = () => {
     }
   }, [id]);
 
-  if(redirect) {
+  if (redirect) {
     return <Navigate to={'/a/users'}/>
   }
 
   return (
-    <div className="flex items-center justify-around mt-4 grow">
+      <div className="flex items-center justify-around mt-4 grow">
         <div className="mt-40">
-        <h2 className="mb-4 text-2xl font-bold">Edit User Form</h2>
-        <UserForm handleSubmit={handleSubmit} name={name} setName={setName} email={email} setEmail={setEmail}
-            password={password} setPassword={setPassword} />
+          <h2 className="mb-4 text-2xl font-bold">Edit User Form</h2>
+          <UserForm handleSubmit={handleSubmit} name={name} setName={setName}
+                    email={email} setEmail={setEmail}
+                    password={password} setPassword={setPassword}/>
         </div>
-    </div>
+      </div>
   );
 };
 

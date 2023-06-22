@@ -3,7 +3,7 @@ import {Link, useLocation} from "react-router-dom";
 export default function AccountNav() {
   const {pathname} = useLocation();
   let subpage = pathname.split('/')?.[2];
-  if(subpage === undefined){
+  if (subpage === undefined) {
     subpage = 'profile';
   }
 
