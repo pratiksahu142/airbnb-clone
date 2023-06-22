@@ -1,4 +1,4 @@
-import {useParams} from "react-router-dom";
+import {Navigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import { useContext } from "react";
@@ -12,7 +12,7 @@ export default function BookingPage() {
   const {id} = useParams();
   const { user } = useContext(UserContext);
   const [booking,setBooking] = useState(null);
-  
+  const [redirect, setRedirect] = useState('');
   useEffect(() => {
     if (id && user) {
       if(user.userType === 'admin') {
@@ -30,7 +30,7 @@ export default function BookingPage() {
           }
         });
       }
-  
+
     }
   }, [id, user]);
 
@@ -38,20 +38,34 @@ export default function BookingPage() {
     return '';
   }
 
+  function returnToBookings() {
+    setRedirect('/account/bookings');
+  }
+
+  if(redirect){
+    return <Navigate to={redirect}/>
+  }
+
   return (
-      <div className="flex flex-col min-h-screen px-8 py-4">
+      <div className="py-4 px-8 flex flex-col min-h-screen">
         <Header/>
         <div className="my-8">
-          <h1 className="text-3xl">{booking.place.title}</h1>
+          <div className="flex">
+            <h1 className="text-2xl">{booking.place.title}</h1>
+          </div>
+          <div>
+            <button onClick={returnToBookings} className="bg-primary w-fit text-white rounded-2xl float-right py-2 px-4">Go back</button>
+          </div>
+
           <AddressLink
-              className="block my-2">{booking.place.address}</AddressLink>
+              className="my-2 block">{booking.place.address}</AddressLink>
           <div
-              className="flex items-center justify-between p-6 my-6 bg-gray-200 rounded-2xl">
+              className="bg-gray-200 p-6 my-6 rounded-2xl flex items-center justify-between">
             <div>
-              <h2 className="mb-4 text-2xl">Your booking information:</h2>
+              <h2 className="text-2xl mb-4">Your booking information:</h2>
               <BookingDates booking={booking}/>
             </div>
-            <div className="p-6 text-white bg-primary rounded-2xl">
+            <div className="bg-primary p-6 text-white rounded-2xl">
               <div>Total price</div>
               <div className="text-3xl">${booking.price}</div>
             </div>

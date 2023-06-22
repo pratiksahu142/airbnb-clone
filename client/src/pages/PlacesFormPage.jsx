@@ -23,10 +23,10 @@ export default function PlacesFormPage() {
   const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
-    if(!id){
+    if (!id) {
       return;
     }
-    axios.get('/places/'+id).then(response => {
+    axios.get('/places/' + id).then(response => {
       const {data} = response;
       setTitle(data.title);
       setAddress(data.address);
@@ -42,11 +42,11 @@ export default function PlacesFormPage() {
   }, [id]);
 
   function inputHeader(text) {
-    return <h2 className="mt-4 text-2xl">{text}</h2>;
+    return <h2 className="text-2xl mt-4">{text}</h2>;
   }
 
   function inputDescription(text) {
-    return <p className="text-sm text-gray-500">{text}</p>;
+    return <p className="text-gray-500 text-sm">{text}</p>;
   }
 
   function preInput(header, desc) {
@@ -59,7 +59,8 @@ export default function PlacesFormPage() {
 
   async function savePlace(ev) {
     ev.preventDefault();
-    const placeData = {title,
+    const placeData = {
+      title,
       address,
       addedPhotos,
       description,
@@ -68,8 +69,9 @@ export default function PlacesFormPage() {
       checkIn,
       checkOut,
       maxGuests,
-      price};
-    if(id){
+      price
+    };
+    if (id) {
       //update
       const {data} = await axios.put('/places', {
         id,
@@ -81,21 +83,31 @@ export default function PlacesFormPage() {
     }
     setRedirect(true);
   }
-  
-  if(redirect){
+
+  function returnToPlaces() {
+    setRedirect(true);
+  }
+
+  if (redirect) {
     return <Navigate to={'/account/places'}/>;
   }
-  
+
   function isDisabled() {
     if(user) {
-      return user.userType === 'admin' 
+      return user.userType === 'admin'
     }
   }
-  
+
   return (
-      <div className="flex flex-col min-h-screen px-8 py-4">
+      <div className="py-4 px-8 flex flex-col min-h-screen">
         <Header/>
           <AccountNav/>
+        <div>
+          <button onClick={returnToPlaces}
+                  className="bg-primary py-2 px-4 w-fit text-white rounded-2xl float-right">Go
+            back
+          </button>
+        </div>
           <form onSubmit={savePlace}>
             {preInput('Title',
                 'Title for your place, can be short and catchy!')}
