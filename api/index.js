@@ -465,7 +465,8 @@ app.delete('/a/bookings/:id', async (req, res) => {
   if(userData.userType === 'admin') {
     const bookingId = req.params.id;
     try {
-      const result = await Booking.deleteOne({ _id: ObjectId(bookingId) });
+      console.log(bookingId);
+      const result = await Booking.deleteOne({ _id: bookingId });
   
       if (result.deletedCount === 1) {
         res.status(200).json({ message: 'Booking deleted successfully' });
@@ -473,6 +474,7 @@ app.delete('/a/bookings/:id', async (req, res) => {
         res.status(404).json({ error: 'Booking not found' });
       }
     } catch (error) {
+      console.log(error);
       res.status(500).json({ error: 'An error occurred while deleting the booking' });
     }
   } else {
