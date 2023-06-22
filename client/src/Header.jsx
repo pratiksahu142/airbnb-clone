@@ -33,8 +33,8 @@ export default function Header() {
   }
 
   async function handleInternalSearch() {
-    if (kindOfStay && checkIn && checkOut && numberOfGuests) {
-      const redirectPath = `/search?location=${kindOfStay}&maxPrice=${maxPrice}`;
+    if (kindOfStay && maxPrice) {
+      const redirectPath = `/search?keyword=${kindOfStay}&maxPrice=${maxPrice}`;
       setRedirect(redirectPath);
     }
   }
@@ -136,7 +136,7 @@ export default function Header() {
                         <div className="flex">
                           <button
                               className=" bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-2xl"
-                              onClick={togglePopup}>
+                              onClick={handleInternalSearch}>
                             Search
                           </button>
                           <button
