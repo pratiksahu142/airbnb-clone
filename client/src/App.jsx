@@ -19,6 +19,7 @@ import AdminLoginPage from "./admin-pages/AdminLoginPage";
 import UsersPage from './admin-pages/UsersPage';
 import NewUserPage from './admin-pages/NewUserPage';
 import EditUserPage from './admin-pages/EditUserPage';
+import SearchInPage from "./pages/SearchInPage";
 
 axios.defaults.baseURL = "http://localhost:4000";
 axios.defaults.withCredentials = true;
@@ -53,6 +54,7 @@ function App() {
           <Route path="/place/:id" element={<PlacePage/>}/>
           <Route path="/account/bookings" element={<BookingsPage/>}/>
           <Route path="/account/bookings/:id" element={<BookingPage/>}/>
+          <Route path="/search" element={<SearchInPage/>}/>
           <Route path="/search/api" element={<SearchAPIPage/>}/>
           <Route path="/search/api/detail/:id"
                  element={<SearchAPIDetailPage/>}/>
