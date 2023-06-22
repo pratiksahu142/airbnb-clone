@@ -26,12 +26,14 @@ export default function BookingWidget({place}) {
   }
 
   async function bookThisPlace(){
-    const response = await axios.post('/bookings', {
-      place:place._id,
-      price:numberOfNights*place.price,
-      checkIn, checkOut, numberOfGuests, name, phone});
-    const bookingId = response.data._id;
-    setRedirect(`/account/bookings/${bookingId}`);
+    if(user && checkIn && checkOut && name && phone){
+      const response = await axios.post('/bookings', {
+        place:place._id,
+        price:numberOfNights*place.price,
+        checkIn, checkOut, numberOfGuests, name, phone});
+      const bookingId = response.data._id;
+      setRedirect(`/account/bookings/${bookingId}`);
+    }
   }
   
   if(redirect){
@@ -46,13 +48,13 @@ export default function BookingWidget({place}) {
         <div className="border rounded-2xl mt-4">
           <div className="flex">
             <div className="py-3 px-4 ">
-              <label>Check-in:</label>
-              <input type="date" value={checkIn}
+              <label>Check-in: </label>
+              <input className=" text-gray-500" type="date" value={checkIn}
                      onChange={ev => setCheckIn(ev.target.value)}/>
             </div>
             <div className="py-3 px-4 border-l">
-              <label>Check-out:</label>
-              <input type="date" value={checkOut}
+              <label>Check-out: </label>
+              <input className=" text-gray-500" type="date" value={checkOut}
                      onChange={ev => setCheckOut(ev.target.value)}/>
             </div>
           </div>

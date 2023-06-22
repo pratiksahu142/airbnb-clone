@@ -4,6 +4,7 @@ import { Navigate, useParams, useNavigate } from "react-router-dom";
 import PlacesPage from "./PlacesPage";
 import AccountNav from "../AccountNav";
 import Profile from "../Profile";
+import Header from "../Header";
 
 export default function AccountPage() {
   const [redirect, setRedirect] = useState(null);
@@ -29,7 +30,8 @@ export default function AccountPage() {
   }
 
   return (
-      <div>
+      <div className="py-4 px-8 flex flex-col min-h-screen">
+        <Header/>
         <AccountNav />
         {subpage === "profile" && (
             <div className="w-full">

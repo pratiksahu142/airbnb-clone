@@ -3,6 +3,7 @@ import AccountNav from "../AccountNav";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import PlaceImg from "./PlaceImg";
+import Header from "../Header";
 
 export default function PlacesPage() {
   const [places, setPlaces] = useState([]);
@@ -17,7 +18,8 @@ export default function PlacesPage() {
   }, []);
   console.log(places)
   return (
-      <div>
+      <div className="py-4 px-8 flex flex-col min-h-screen">
+        <Header/>
         <AccountNav/>
         <div className="text-center">
           <Link

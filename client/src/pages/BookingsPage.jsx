@@ -4,6 +4,7 @@ import axios from "axios";
 import PlaceImg from "./PlaceImg";
 import {Link} from "react-router-dom";
 import BookingDates from "../BookingDates";
+import Header from "../Header";
 
 export default function BookingsPage() {
   const [bookings, setBookings] = useState([]);
@@ -13,7 +14,8 @@ export default function BookingsPage() {
     });
   }, []);
   return (
-      <div>
+      <div className="py-4 px-8 flex flex-col min-h-screen">
+        <Header/>
         <AccountNav/>
         <div>
           {bookings?.length > 0 && bookings.map(booking => (
