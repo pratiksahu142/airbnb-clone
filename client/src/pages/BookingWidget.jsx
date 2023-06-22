@@ -15,28 +15,30 @@ export default function BookingWidget({place}) {
   const {user} = useContext(UserContext);
 
   useEffect(() => {
-    if(user){
+    if (user) {
       setName(user.name);
     }
   }, [user])
 
   let numberOfNights = 0;
-  if(checkIn && checkOut){
-    numberOfNights = differenceInCalendarDays(new Date(checkOut), new Date(checkIn));
+  if (checkIn && checkOut) {
+    numberOfNights = differenceInCalendarDays(new Date(checkOut),
+        new Date(checkIn));
   }
 
-  async function bookThisPlace(){
-    if(user && checkIn && checkOut && name && phone){
+  async function bookThisPlace() {
+    if (user && checkIn && checkOut && name && phone) {
       const response = await axios.post('/bookings', {
-        place:place._id,
-        price:numberOfNights*place.price,
-        checkIn, checkOut, numberOfGuests, name, phone});
+        place: place._id,
+        price: numberOfNights * place.price,
+        checkIn, checkOut, numberOfGuests, name, phone
+      });
       const bookingId = response.data._id;
       setRedirect(`/account/bookings/${bookingId}`);
     }
   }
-  
-  if(redirect){
+
+  if (redirect) {
     return <Navigate to={redirect}/>
   }
 

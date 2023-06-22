@@ -12,6 +12,7 @@
 - yarn add date-fns
 - yarn add react-input-range
 - yarn add react-image-gallery
+- yarn add @heroicons/react@v1
 - cd ../api
 - yarn add express
 - yarn add nodemon 

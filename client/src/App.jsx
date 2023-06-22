@@ -2,7 +2,6 @@ import './App.css'
 import {Route, Routes} from "react-router-dom";
 import IndexPage from "./pages/IndexPage";
 import LoginPage from "./pages/LoginPage";
-import Layout from "./Layout";
 import RegisterPage from "./pages/RegisterPage";
 import axios from "axios";
 import {UserContextProvider} from "./UserContext";
@@ -30,57 +29,57 @@ function App() {
       <UserContextProvider>
         <Routes>
           {/*<Route path="/" element={<Layout/>}>*/}
-            <Route index element={<IndexPage/>}/>
-            <Route path="/login" element={<LoginPage/>}/>
-            <Route path="/a/login" element={<AdminLoginPage />} />
-            <Route path="/register" element={<RegisterPage/>}/>
-            <Route path="/profile/:id" element={<PublicProfile/>} />
-            <Route path="/account/:subpage?" element={<AccountPage/>} />
-            <Route path="/account/places" element={
-                  <AuthGuard allowedUserTypes={["business", "admin"]}>
-                    <PlacesPage/>
-                  </AuthGuard>
-                }
-            />
-            <Route
-                path="/account/places/new"
-                element={
-                  <AuthGuard allowedUserTypes={["business"]}>
-                    <PlacesFormPage/>
-                  </AuthGuard>
-                }
-            />
-            <Route path="/account/places/:id" element={<PlacesFormPage/>}/>
-            <Route path="/place/:id" element={<PlacePage/>}/>
-            <Route path="/account/bookings" element={<BookingsPage/>}/>
-            <Route path="/account/bookings/:id" element={<BookingPage/>}/>
-            <Route path="/search/api" element={<SearchAPIPage/>}/>
-            <Route path="/search/api/detail/:id" element={<SearchAPIDetailPage/>}/>
-            <Route
-                path="/a/users"
-                element={
-                  <AuthGuard allowedUserTypes={["admin"]}>
-                    <UsersPage/>
-                  </AuthGuard>
-                }
-            />
-            <Route
-                path="/a/users/new"
-                element={
-                  <AuthGuard allowedUserTypes={["admin"]}>
-                    <NewUserPage/>
-                  </AuthGuard>
-                }
-            />
-            <Route
-                path="/a/users/edit/:id"
-                element={
-                  <AuthGuard allowedUserTypes={["admin"]}>
-                    <EditUserPage/>
-                  </AuthGuard>
-                }
-            />
-          {/*</Route>*/}
+          <Route index element={<IndexPage/>}/>
+          <Route path="/login" element={<LoginPage/>}/>
+          <Route path="/a/login" element={<AdminLoginPage/>}/>
+          <Route path="/register" element={<RegisterPage/>}/>
+          <Route path="/profile/:id" element={<PublicProfile/>}/>
+          <Route path="/account/:subpage?" element={<AccountPage/>}/>
+          <Route path="/account/places" element={
+            <AuthGuard allowedUserTypes={["business", "admin"]}>
+              <PlacesPage/>
+            </AuthGuard>
+          }
+          />
+          <Route
+              path="/account/places/new"
+              element={
+                <AuthGuard allowedUserTypes={["business"]}>
+                  <PlacesFormPage/>
+                </AuthGuard>
+              }
+          />
+          <Route path="/account/places/:id" element={<PlacesFormPage/>}/>
+          <Route path="/place/:id" element={<PlacePage/>}/>
+          <Route path="/account/bookings" element={<BookingsPage/>}/>
+          <Route path="/account/bookings/:id" element={<BookingPage/>}/>
+          <Route path="/search/api" element={<SearchAPIPage/>}/>
+          <Route path="/search/api/detail/:id"
+                 element={<SearchAPIDetailPage/>}/>
+          <Route
+              path="/a/users"
+              element={
+                <AuthGuard allowedUserTypes={["admin"]}>
+                  <UsersPage/>
+                </AuthGuard>
+              }
+          />
+          <Route
+              path="/a/users/new"
+              element={
+                <AuthGuard allowedUserTypes={["admin"]}>
+                  <NewUserPage/>
+                </AuthGuard>
+              }
+          />
+          <Route
+              path="/a/users/edit/:id"
+              element={
+                <AuthGuard allowedUserTypes={["admin"]}>
+                  <EditUserPage/>
+                </AuthGuard>
+              }
+          />
         </Routes>
       </UserContextProvider>
   )

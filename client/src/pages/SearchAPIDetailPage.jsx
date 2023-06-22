@@ -76,73 +76,76 @@ export default function SearchAPIDetailPage() {
   }
 
   return (
-      <div className="bg-white rounded-lg shadow-md p-6 font-light">
-        <h2 className="text-2xl font-bold mb-4">{name}</h2>
-        <p className="text-gray-600 mb-6 border-b">{tagline}</p>
+      <div className="py-4 px-8 flex flex-col min-h-screen">
+        <Header/>
+        <div className="bg-white rounded-lg p-6 font-light">
+          <h2 className="text-2xl font-bold mb-4">{name}</h2>
+          <p className="text-gray-600 mb-6 border-b">{tagline}</p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <h3 className="text-lg font-semibold mb-2">Location</h3>
-            <p className="mb-2">Address: {address}</p>
-            <div className="cursor-pointer flex text-gray-500">
-              <a href={place.googleMapLink}>View on Google maps</a>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <h3 className="text-lg font-semibold mb-2">Location</h3>
+              <p className="mb-2">Address: {address}</p>
+              <div className="cursor-pointer flex text-gray-500">
+                <a href={place.googleMapLink}>View on Google maps</a>
 
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                   viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
-                   className="w-6 h-6 text-primary">
-                <path strokeLinecap="round" strokeLinejoin="round"
-                      d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/>
-                <path strokeLinecap="round" strokeLinejoin="round"
-                      d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/>
-              </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                     viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
+                     className="w-6 h-6 text-primary">
+                  <path strokeLinecap="round" strokeLinejoin="round"
+                        d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  <path strokeLinecap="round" strokeLinejoin="round"
+                        d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/>
+                </svg>
+              </div>
+
+              <h3 className="text-lg font-semibold mb-2 mt-4 pt-4 border-t">Need
+                to Know</h3>
+              <ul className="list-disc list-inside mb-6">
+                {needToKnows && needToKnows.map((item) => (
+                    <li key={item}>{item}</li>
+                ))}
+              </ul>
+
+              <h3 className="text-lg font-semibold mb-2 pt-4 border-t">Extra
+                Info</h3>
+              <ul className="list-disc list-inside mb-6">
+                {shouldMentions && shouldMentions.map((item) => (
+                    <li key={item}>{item}</li>
+                ))}
+              </ul>
+
+              <h3 className="text-lg font-semibold mb-2 pt-4 border-t">Amenities</h3>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {amenities && amenities.map((item, index) => (
+                    <div key={index}
+                         className="border border-gray-300 rounded-2xl p-4">
+                      {item}
+                    </div>
+                ))}
+              </div>
             </div>
 
-            <h3 className="text-lg font-semibold mb-2 mt-4 pt-4 border-t">Need
-              to Know</h3>
-            <ul className="list-disc list-inside mb-6">
-              {needToKnows && needToKnows.map((item) => (
-                  <li key={item}>{item}</li>
-              ))}
-            </ul>
+            <div>
+              <h3 className="text-lg font-semibold mb-2">What's Around</h3>
+              <p className="mb-6">{whatsAround}</p>
 
-            <h3 className="text-lg font-semibold mb-2 pt-4 border-t">Extra
-              Info</h3>
-            <ul className="list-disc list-inside mb-6">
-              {shouldMentions && shouldMentions.map((item) => (
-                  <li key={item}>{item}</li>
-              ))}
-            </ul>
-
-            <h3 className="text-lg font-semibold mb-2 pt-4 border-t">Amenities</h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {amenities && amenities.map((item, index) => (
-                  <div key={index}
-                       className="border border-gray-300 rounded-2xl p-4">
-                    {item}
-                  </div>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-lg font-semibold mb-2">What's Around</h3>
-            <p className="mb-6">{whatsAround}</p>
-
-            <h3 className="text-lg font-semibold mb-2 pt-4 border-t">Photos</h3>
-            <div onClick={() => setShowAllPhotos(true)}
-                 className="cursor-pointer grid grid-cols-2 md:grid-cols-3 gap-4">
-              {photos && photos.map((photo, index) => (
-                  <div
-                      key={index}
-                      className="flex items-center justify-center aspect-w-1 aspect-h-1 rounded-lg overflow-hidden"
-                  >
-                    <img
-                        src={photo}
-                        alt={`Photo ${index + 1}`}
-                        className="object-cover w-full h-full"
-                    />
-                  </div>
-              ))}
+              <h3 className="text-lg font-semibold mb-2 pt-4 border-t">Photos</h3>
+              <div onClick={() => setShowAllPhotos(true)}
+                   className="cursor-pointer grid grid-cols-2 md:grid-cols-3 gap-4">
+                {photos && photos.map((photo, index) => (
+                    <div
+                        key={index}
+                        className="flex items-center justify-center aspect-w-1 aspect-h-1 rounded-lg overflow-hidden"
+                    >
+                      <img
+                          src={photo}
+                          alt={`Photo ${index + 1}`}
+                          className="object-cover w-full h-full"
+                      />
+                    </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

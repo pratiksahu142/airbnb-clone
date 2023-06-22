@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import UserForm from './UserForm';
 import axios from 'axios';
 import { Navigate } from 'react-router-dom';
@@ -14,15 +14,15 @@ const NewUserPage = () => {
     e.preventDefault();
     // Handle form submission logic here, such as sending the data to an API
     await axios.post("/a/users", {
-        name,
-        email,
-        password,
-        "userType": "user"
+      name,
+      email,
+      password,
+      "userType": "user"
     });
     setRedirect(true);
   };
 
-  if(redirect) {
+  if (redirect) {
     return <Navigate to={'/a/users'}/>
   }
 
