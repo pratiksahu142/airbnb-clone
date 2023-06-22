@@ -41,7 +41,7 @@ export default function SearchAPIPage() {
       };
       fetchData();
     }
-  }, [location,checkIn,checkOut,minPrice,maxPrice,numberOfGuests]);
+  }, [ulocation]);
 
   if (loading) {
     return (

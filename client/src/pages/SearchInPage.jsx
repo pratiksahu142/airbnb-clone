@@ -29,7 +29,7 @@ export default function SearchInPage() {
       });
       setPlaces(filteredData);
     });
-  }, [keyword,maxPrice]);
+  }, [ulocation]);
   return (
       <div className="py-4 px-8 flex flex-col min-h-screen">
         <Header/>
