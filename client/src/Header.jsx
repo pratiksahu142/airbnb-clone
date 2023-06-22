@@ -46,17 +46,12 @@ export default function Header() {
   return (
       <header className="flex justify-between">
         <Link to={'/'}
-              className="flex items-center gap-1 border p-2 rounded-2xl shadow shadow-gray-300">
+              className="flex items-center gap-1 border p-2 rounded-full shadow shadow-gray-300">
           <img src={logo} alt="WanderWise Logo" className="h-8 w-8"/>
           <span className="font-bold text-xl">WanderWise</span>
         </Link>
-        <div
-            className="flex gap-2 border border-gray-300 rounded-full py-2 px-4 shadow shadow-gray-300">
-          <div>Anywhere</div>
-          <div className="border-l border-gray-300 "></div>
-          <div>Any week</div>
-          <div className="border-l border-gray-300 "></div>
-          <div>Add Guests</div>
+        <div className="flex gap-2 border border-gray-300 rounded-full py-2 px-4 shadow shadow-gray-300">
+          <div className="text-center pt-1 ">Search</div>
           <button onClick={togglePopup}
                   className="bg-primary text-white p-2 rounded-full">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -101,20 +96,6 @@ export default function Header() {
                                  onChange={ev => setKindOfStay(
                                      ev.target.value)}/>
                         </div>
-                        {/*<div className="flex border-t border-b">*/}
-                        {/*  <div className="py-3 px-4 ">*/}
-                        {/*    <label>Check-in: </label>*/}
-                        {/*    <input type="date" value={checkIn}*/}
-                        {/*           onChange={ev => setCheckIn(*/}
-                        {/*               ev.target.value)}/>*/}
-                        {/*  </div>*/}
-                        {/*  <div className="py-3 px-4 border-l">*/}
-                        {/*    <label>Check-out: </label>*/}
-                        {/*    <input type="date" value={checkOut}*/}
-                        {/*           onChange={ev => setCheckOut(*/}
-                        {/*               ev.target.value)}/>*/}
-                        {/*  </div>*/}
-                        {/*</div>*/}
                         <div className="py-3 px-4 ">
                           <label className="font-bold">Max Price: <span
                               className="text-gray-500">{maxPrice}</span></label>
@@ -127,12 +108,6 @@ export default function Header() {
                               onChange={ev => setMaxPrice(ev.target.value)}
                           />
                         </div>
-                        {/*<div className="py-3 px-4 border-t">*/}
-                        {/*  <label>Number of guests:</label>*/}
-                        {/*  <input type="number" value={numberOfGuests}*/}
-                        {/*         onChange={ev => setNumberOfGuests(*/}
-                        {/*             ev.target.value)}/>*/}
-                        {/*</div>*/}
                         <div className="flex">
                           <button
                               className=" bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-2xl"
