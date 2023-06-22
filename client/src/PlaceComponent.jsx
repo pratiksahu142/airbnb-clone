@@ -1,10 +1,10 @@
 import {Link} from "react-router-dom";
 import Image from "./Image.jsx";
 
-export default function PlaceComponent({place, key}) {
+export default function PlaceComponent({place}) {
   return (
       <>
-        <Link to={"/place/" + place._id} key={key}>
+        <Link to={"/place/" + place._id}>
           <div
               className="flex mb-2 bg-gray-500 md:h-80 lg:h-80 h-60 rounded-2xl">
             {place.photos?.[0] && (
