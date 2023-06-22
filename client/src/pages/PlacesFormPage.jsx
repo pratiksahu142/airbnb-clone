@@ -5,6 +5,7 @@ import axios from "axios";
 import AccountNav from "../AccountNav";
 import {Navigate, useParams} from "react-router-dom";
 import { UserContext } from "../UserContext";
+import Header from "../Header";
 
 export default function PlacesFormPage() {
   const {id} = useParams();
@@ -92,7 +93,8 @@ export default function PlacesFormPage() {
   }
   
   return (
-        <div>
+      <div className="flex flex-col min-h-screen px-8 py-4">
+        <Header/>
           <AccountNav/>
           <form onSubmit={savePlace}>
             {preInput('Title',

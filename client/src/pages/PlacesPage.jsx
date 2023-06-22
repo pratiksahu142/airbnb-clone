@@ -3,8 +3,12 @@ import AccountNav from "../AccountNav";
 import {useContext, useEffect, useState} from "react";
 import axios from "axios";
 import PlaceImg from "./PlaceImg";
+<<<<<<< HEAD
 import { UserContext } from "../UserContext";
 import AdminNav from "../admin-pages/AdminNav";
+=======
+import Header from "../Header";
+>>>>>>> 50bf6eb67b05bbed20eb9d568c773e3118fe254a
 
 export default function PlacesPage() {
   const { user } = useContext(UserContext);
@@ -28,13 +32,14 @@ export default function PlacesPage() {
     fetchData();
   }, [user]);
   return (
-      <div>
-      {user && (
-        <>
-          {user.userType === 'admin' && <AdminNav />}
-          {(user.userType === 'user' || user.userType === 'business') && <AccountNav />}
-        </>
-      )}
+      <div className="flex flex-col min-h-screen px-8 py-4">
+        <Header/>
+        {user && (
+          <>
+            {user.userType === 'admin' && <AdminNav />}
+            {(user.userType === 'user' || user.userType === 'business') && <AccountNav />}
+          </>
+        )}
 
       {(user && user.userType === 'business') && (
         <div className="text-center">

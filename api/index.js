@@ -551,7 +551,7 @@ app.post('/bookings', async (req, res) => {
     user: userData.id
   }).then((doc) => {
     res.json(doc);
-  }).catch(() => {
+  }).catch((err) => {
     throw err;
   })
 
@@ -584,7 +584,7 @@ app.get('/search/api', async (req, res) => {
         url: 'https://hotels4.p.rapidapi.com/properties/v2/list',
         headers: {
           'content-type': 'application/json',
-          'X-RapidAPI-Key': 'c648db000dmsh4ba042b32ef1a46p1a0607jsncdf69f4b6ef5',
+          'X-RapidAPI-Key': '6a83d17e61mshdac97dea4a35346p16bacbjsn31933b717782',
           'X-RapidAPI-Host': 'hotels4.p.rapidapi.com'
         },
         data: {
@@ -671,7 +671,7 @@ async function getRegionId(location) {
       siteid: '300000001'
     },
     headers: {
-      'X-RapidAPI-Key': 'c648db000dmsh4ba042b32ef1a46p1a0607jsncdf69f4b6ef5',
+      'X-RapidAPI-Key': '6a83d17e61mshdac97dea4a35346p16bacbjsn31933b717782',
       'X-RapidAPI-Host': 'hotels4.p.rapidapi.com'
     }
   };
@@ -691,7 +691,7 @@ app.get('/search/api/details', async (req, res) => {
     url: 'https://hotels4.p.rapidapi.com/properties/v2/detail',
     headers: {
       'content-type': 'application/json',
-      'X-RapidAPI-Key': 'c648db000dmsh4ba042b32ef1a46p1a0607jsncdf69f4b6ef5',
+      'X-RapidAPI-Key': '6a83d17e61mshdac97dea4a35346p16bacbjsn31933b717782',
       'X-RapidAPI-Host': 'hotels4.p.rapidapi.com'
     },
     data: {

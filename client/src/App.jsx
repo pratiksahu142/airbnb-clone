@@ -29,16 +29,14 @@ function App() {
   return (
       <UserContextProvider>
         <Routes>
-          <Route path="/" element={<Layout/>}>
+          {/*<Route path="/" element={<Layout/>}>*/}
             <Route index element={<IndexPage/>}/>
             <Route path="/login" element={<LoginPage/>}/>
             <Route path="/a/login" element={<AdminLoginPage />} />
             <Route path="/register" element={<RegisterPage/>}/>
             <Route path="/profile/:id" element={<PublicProfile/>} />
             <Route path="/account/:subpage?" element={<AccountPage/>} />
-            <Route
-                path="/account/places"
-                element={
+            <Route path="/account/places" element={
                   <AuthGuard allowedUserTypes={["business", "admin"]}>
                     <PlacesPage/>
                   </AuthGuard>
@@ -82,7 +80,7 @@ function App() {
                   </AuthGuard>
                 }
             />
-          </Route>
+          {/*</Route>*/}
         </Routes>
       </UserContextProvider>
   )

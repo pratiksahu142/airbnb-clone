@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 import BookingDates from "../BookingDates";
 import { UserContext } from "../UserContext";
 import AdminNav from "../admin-pages/AdminNav";
+import Header from "../Header";
 
 export default function BookingsPage() {
   const { user } = useContext(UserContext);
@@ -24,13 +25,14 @@ export default function BookingsPage() {
     }
   }, [user]);
   return (
-      <div>
-      {user && (
-        <>
-          {user.userType === 'admin' && <AdminNav />}
-          {(user.userType === 'user' || user.userType === 'business') && <AccountNav />}
-        </>
-      )}
+        <div className="flex flex-col min-h-screen px-8 py-4">
+          <Header/>
+          {user && (
+            <>
+              {user.userType === 'admin' && <AdminNav />}
+              {(user.userType === 'user' || user.userType === 'business') && <AccountNav />}
+            </>
+          )}
         <div>
           {bookings?.length > 0 && bookings.map(booking => (
               <Link to={`/account/bookings/${booking._id}`}

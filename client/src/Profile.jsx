@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import PlaceComponent from "./PlaceComponent";
 import Image from "./Image";
+import Header from "./Header";
 
 export default function Profile({ setRedirect, setUser, user }) {
   const [name, setName] = useState("");
