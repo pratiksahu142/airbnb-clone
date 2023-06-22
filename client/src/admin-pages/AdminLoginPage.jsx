@@ -1,4 +1,4 @@
-import { Link, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useState, useContext } from "react";
 import axios from "axios";
 import { UserContext } from "../UserContext.jsx";

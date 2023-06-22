@@ -422,6 +422,46 @@ app.get('/bookings', async (req, res) => {
   res.json(await Booking.find({user: userData.id}).populate('place'))
 });
 
+app.get('/a/bookings', async (req, res) => {
+  const userData = await getUserDataFromRequest(req);
+  if(userData.userType === 'admin') {
+    res.json(await Booking.find().populate('place'))
+  } else {
+    res.sendStatus(401);
+  }
+});
+
+app.get('/a/users', async(req, res) => {
+  const userData = await getUserDataFromRequest(req);
+  if(userData.userType === 'admin') {
+    res.json(await User.find());
+  } else {
+    res.sendStatus(401);
+  }
+});
+
+app.post('/a/users', async(req, res) => {
+  const userData = await getUserDataFromRequest(req);
+  if(userData.userType === 'admin') {
+    const {
+      name,
+      email,
+      password,
+      userType
+    } = req.body;
+    const userDoc = await User.create({
+      name,
+      email,
+      password: bcrypt.hashSync(password, bcryptSalt),
+      userType,
+      profileImg : ""
+    });
+    res.json(userDoc);
+  } else {
+    res.sendStatus(401);
+  }
+});
+
 app.post('/bookings', async (req, res) => {
   const userData = await getUserDataFromRequest(req);
   const {

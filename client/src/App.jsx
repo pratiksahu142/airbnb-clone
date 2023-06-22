@@ -17,6 +17,9 @@ import SearchAPIDetailPage from "./pages/SearchAPIDetailPage";
 import AuthGuard from "./AuthGuard";
 import PublicProfile from "./PublicProfile";
 import AdminLoginPage from "./admin-pages/AdminLoginPage";
+import UsersPage from './admin-pages/UsersPage';
+import AdminBookingsPage from './admin-pages/AdminBookingsPage';
+import NewUserPage from './admin-pages/NewUserPage';
 
 axios.defaults.baseURL = "http://localhost:4000";
 axios.defaults.withCredentials = true;
@@ -55,6 +58,30 @@ function App() {
             <Route path="/account/bookings/:id" element={<BookingPage/>}/>
             <Route path="/search/api" element={<SearchAPIPage/>}/>
             <Route path="/search/api/detail/:id" element={<SearchAPIDetailPage/>}/>
+            <Route
+                path="/a/users"
+                element={
+                  <AuthGuard allowedUserTypes={["admin"]}>
+                    <UsersPage/>
+                  </AuthGuard>
+                }
+            />
+            <Route
+                path="/a/users/new"
+                element={
+                  <AuthGuard allowedUserTypes={["admin"]}>
+                    <NewUserPage/>
+                  </AuthGuard>
+                }
+            />
+            <Route
+                path="/a/bookings"
+                element={
+                  <AuthGuard allowedUserTypes={["admin"]}>
+                    <AdminBookingsPage/>
+                  </AuthGuard>
+                }
+            />
           </Route>
         </Routes>
       </UserContextProvider>
