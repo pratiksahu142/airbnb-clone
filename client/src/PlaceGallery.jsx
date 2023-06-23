@@ -5,28 +5,31 @@ export default function PlaceGallery({place}) {
 
   if (showAllPhotos) {
     return (
-        <div className="absolute inset-0 bg-black text-white min-h-screen">
-          <div className="bg-black p-8 grid gap-4">
+        <div className="absolute inset-0 min-h-screen text-white bg-black">
+          <div className="grid gap-4 p-8 bg-black sm:gap-2 sm:p-4">
             <div>
-              <h2 className="text-2xl mr-36 truncate">Photos
+              <h2 className="mr-20 text-2xl md:mr-36 ms-10">Photos
                 of {place.title}</h2>
               <button onClick={() => setShowAllPhotos(false)}
-                      className="fixed right-12 top-8 flex gap-1 py-2 px-4 rounded-2xl shadow shadow-black bg-white text-black">
+                      className="absolute flex gap-1 px-4 py-2 text-black bg-white shadow right-9 top-5 rounded-2xl shadow-black">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                      fill="currentColor" className="w-6 h-6">
                   <path fillRule="evenodd"
                         d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
                         clipRule="evenodd"/>
                 </svg>
-                Close photos
+                {/* Close photos */}
               </button>
             </div>
-            {place?.photos?.length > 0 && place.photos.map(photo => (
-                <div>
-                  <img src={'http://localhost:4000/uploads/' + photo} alt=""/>
-                </div>
-            ))}
+            <div className="flex flex-row flex-wrap gap-4 p-8">
+              {place?.photos?.length > 0 && place.photos.map(photo => (
+                  <div className="w-64 lg:w-80 sm:w-48" key={photo._id}>
+                    <img src={'http://localhost:4000/uploads/' + photo} alt="" className="object-cover w-full h-full aspect-square"/>
+                  </div>
+              ))}
           </div>
+          </div>
+
         </div>
     );
   }
@@ -38,23 +41,23 @@ export default function PlaceGallery({place}) {
             {place.photos?.[0] && (
                 <div>
                   <img onClick={() => setShowAllPhotos(true)}
-                       className="cursor-pointer aspect-square object-cover"
+                       className="object-cover cursor-pointer aspect-square"
                        src={'http://localhost:4000/uploads/' + place.photos[0]}
                        alt=""/>
                 </div>
             )}
           </div>
-          <div className="grid  ">
+          <div className="grid ">
             {place.photos?.[1] && (
                 <img onClick={() => setShowAllPhotos(true)}
-                     className="cursor-pointer aspect-square object-cover"
+                     className="object-cover cursor-pointer aspect-square"
                      src={'http://localhost:4000/uploads/' + place.photos[1]}
                      alt=""/>
             )}
             <div className="overflow-hidden">
               {place.photos?.[2] && (
                   <img onClick={() => setShowAllPhotos(true)}
-                       className="cursor-pointer aspect-square object-cover relative top-2"
+                       className="relative object-cover cursor-pointer aspect-square top-2"
                        src={'http://localhost:4000/uploads/' + place.photos[2]}
                        alt=""/>
               )}
@@ -62,7 +65,7 @@ export default function PlaceGallery({place}) {
           </div>
         </div>
         <button onClick={() => setShowAllPhotos(true)}
-                className="flex gap-1 absolute bottom-2 right-2 py-2 px-4 bg-white rounded-2xl shadow shadow-md shadow-gray-500 ">
+                className="absolute flex gap-1 px-4 py-2 bg-white shadow shadow-md bottom-2 right-2 rounded-2xl shadow-gray-500 ">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                fill="currentColor" className="w-6 h-6">
             <path fillRule="evenodd"

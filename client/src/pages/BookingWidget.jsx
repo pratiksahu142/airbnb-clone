@@ -43,30 +43,30 @@ export default function BookingWidget({place}) {
   }
 
   return (
-      <div className="bg-white shadow  p-4 rounded-2xl">
+      <div className="p-4 bg-white shadow rounded-2xl">
         <div className="text-2xl text-center">
           Price: ${place.price} / per night
         </div>
-        <div className="border rounded-2xl mt-4">
+        <div className="mt-4 border rounded-2xl">
           <div className="flex">
-            <div className="py-3 px-4 ">
+            <div className="px-2 py-3 ">
               <label>Check-in: </label>
-              <input className=" text-gray-500" type="date" value={checkIn}
+              <input className="text-gray-500 " type="date" value={checkIn}
                      onChange={ev => setCheckIn(ev.target.value)}/>
             </div>
-            <div className="py-3 px-4 border-l">
+            <div className="px-2 py-3 border-l">
               <label>Check-out: </label>
-              <input className=" text-gray-500" type="date" value={checkOut}
+              <input className="text-gray-500 " type="date" value={checkOut}
                      onChange={ev => setCheckOut(ev.target.value)}/>
             </div>
           </div>
-          <div className="py-3 px-4 border-t">
+          <div className="px-4 py-3 border-t">
             <label>Number of guests:</label>
             <input type="number" value={numberOfGuests}
                    onChange={ev => setNumberOfGuests(ev.target.value)}/>
           </div>
           {numberOfNights > 0 && (
-              <div className="py-3 px-4 border-t">
+              <div className="px-4 py-3 border-t">
                 <label>Your full name:</label>
                 <input type="text" value={name}
                        onChange={ev => setName(ev.target.value)}/>
@@ -76,7 +76,7 @@ export default function BookingWidget({place}) {
               </div>
           )}
         </div>
-        <button onClick={bookThisPlace} className="primary mt-4">
+        <button onClick={bookThisPlace} className="mt-4 primary">
           Book
           {numberOfNights > 0 && (
               <span> for ${numberOfNights * place.price} </span>

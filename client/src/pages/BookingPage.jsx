@@ -46,7 +46,7 @@ export default function BookingPage() {
   }
 
   return (
-      <div className="py-4 px-8 flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen px-8 py-4">
         <Header/>
         <div className="my-8">
           <div className="flex">
@@ -54,20 +54,20 @@ export default function BookingPage() {
           </div>
           <div>
             <button onClick={returnToBookings}
-                    className="bg-primary w-fit text-white rounded-2xl float-right py-2 px-4">Go
+                    className="float-right px-4 py-2 text-white bg-primary w-fit rounded-2xl">Go
               back
             </button>
           </div>
 
           <AddressLink
-              className="my-2 block">{booking.place.address}</AddressLink>
+              className="block my-2">{booking.place.address}</AddressLink>
           <div
-              className="bg-gray-200 p-6 my-6 rounded-2xl flex items-center justify-between">
-            <div>
-              <h2 className="text-2xl mb-4">Your booking information:</h2>
+              className="flex flex-wrap justify-between p-6 my-6 bg-gray-200 rounded-2xl">
+            <div className="mb-6">
+              <h2 className="mb-4 text-2xl">Your booking information:</h2>
               <BookingDates booking={booking}/>
             </div>
-            <div className="bg-primary p-6 text-white rounded-2xl">
+            <div className="p-6 text-white bg-primary rounded-2xl">
               <div>Total price</div>
               <div className="text-3xl">${booking.price}</div>
             </div>

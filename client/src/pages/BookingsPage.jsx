@@ -66,9 +66,9 @@ export default function BookingsPage() {
             <div key={booking._id} className="relative">
               <Link
                 to={`/account/bookings/${booking._id}`}
-                className="flex gap-4 my-2 overflow-hidden bg-gray-200 rounded-2xl"
+                className="flex gap-2 my-2 overflow-hidden bg-gray-200 rounded-2xl"
               >
-                <div className="md:w-48 lg:w-56 sm:w-40 sm:h-40">
+                <div className="w-56 h-56 sm:w-40 sm:h-40">
                   <PlaceImg
                     place={booking.place}
                     className="object-cover w-full h-full aspect-square"

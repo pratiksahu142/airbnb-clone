@@ -45,22 +45,22 @@ export default function SearchAPIDetailPage() {
 
   if (showAllPhotos) {
     return (
-        <div className="py-4 px-8 flex flex-col min-h-screen">
+        <div className="flex flex-col min-h-screen px-8 py-4">
           <Header/>
-          <div className="absolute inset-0 bg-black text-white min-h-screen">
-            <div className="bg-black p-8 grid gap-4">
+          <div className="absolute inset-0 min-h-screen text-white bg-black">
+            <div className="grid gap-4 p-8 bg-black">
               <div>
-                <h2 className="text-2xl mr-36 truncate">Photos
+                <h2 className="text-2xl truncate mr-36">Photos
                   of {place.name}</h2>
                 <button onClick={() => setShowAllPhotos(false)}
-                        className="fixed right-12 top-8 flex gap-1 py-2 px-4 rounded-2xl shadow shadow-black bg-white text-black">
+                        className="fixed flex gap-1 px-4 py-2 text-black bg-white shadow right-12 top-8 rounded-2xl shadow-black">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                        fill="currentColor" className="w-6 h-6">
                     <path fillRule="evenodd"
                           d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
                           clipRule="evenodd"/>
                   </svg>
-                  Close photos
+                  {/* Close photos */}
                 </button>
               </div>
               {place?.photos?.length > 0 && place.photos.map((photo, index) => (
@@ -76,17 +76,17 @@ export default function SearchAPIDetailPage() {
   }
 
   return (
-      <div className="py-4 px-8 flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen px-8 py-4">
         <Header/>
-        <div className="bg-white rounded-lg p-6 font-light">
-          <h2 className="text-2xl font-bold mb-4">{name}</h2>
-          <p className="text-gray-600 mb-6 border-b">{tagline}</p>
+        <div className="p-6 font-light bg-white rounded-lg">
+          <h2 className="mb-4 text-2xl font-bold">{name}</h2>
+          <p className="mb-6 text-gray-600 border-b">{tagline}</p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div>
-              <h3 className="text-lg font-semibold mb-2">Location</h3>
+              <h3 className="mb-2 text-lg font-semibold">Location</h3>
               <p className="mb-2">Address: {address}</p>
-              <div className="cursor-pointer flex text-gray-500">
+              <div className="flex text-gray-500 cursor-pointer">
                 <a href={place.googleMapLink}>View on Google maps</a>
 
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -99,27 +99,27 @@ export default function SearchAPIDetailPage() {
                 </svg>
               </div>
 
-              <h3 className="text-lg font-semibold mb-2 mt-4 pt-4 border-t">Need
+              <h3 className="pt-4 mt-4 mb-2 text-lg font-semibold border-t">Need
                 to Know</h3>
-              <ul className="list-disc list-inside mb-6">
+              <ul className="mb-6 list-disc list-inside">
                 {needToKnows && needToKnows.map((item) => (
                     <li key={item}>{item}</li>
                 ))}
               </ul>
 
-              <h3 className="text-lg font-semibold mb-2 pt-4 border-t">Extra
+              <h3 className="pt-4 mb-2 text-lg font-semibold border-t">Extra
                 Info</h3>
-              <ul className="list-disc list-inside mb-6">
+              <ul className="mb-6 list-disc list-inside">
                 {shouldMentions && shouldMentions.map((item) => (
                     <li key={item}>{item}</li>
                 ))}
               </ul>
 
-              <h3 className="text-lg font-semibold mb-2 pt-4 border-t">Amenities</h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <h3 className="pt-4 mb-2 text-lg font-semibold border-t">Amenities</h3>
+              <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
                 {amenities && amenities.map((item, index) => (
                     <div key={index}
-                         className="border border-gray-300 rounded-2xl p-4">
+                         className="p-4 border border-gray-300 rounded-2xl">
                       {item}
                     </div>
                 ))}
@@ -127,16 +127,16 @@ export default function SearchAPIDetailPage() {
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold mb-2">What's Around</h3>
+              <h3 className="mb-2 text-lg font-semibold">What's Around</h3>
               <p className="mb-6">{whatsAround}</p>
 
-              <h3 className="text-lg font-semibold mb-2 pt-4 border-t">Photos</h3>
+              <h3 className="pt-4 mb-2 text-lg font-semibold border-t">Photos</h3>
               <div onClick={() => setShowAllPhotos(true)}
-                   className="cursor-pointer grid grid-cols-2 md:grid-cols-3 gap-4">
+                   className="grid grid-cols-2 gap-4 cursor-pointer md:grid-cols-3">
                 {photos && photos.map((photo, index) => (
                     <div
                         key={index}
-                        className="flex items-center justify-center aspect-w-1 aspect-h-1 rounded-lg overflow-hidden"
+                        className="flex items-center justify-center overflow-hidden rounded-lg aspect-w-1 aspect-h-1"
                     >
                       <img
                           src={photo}

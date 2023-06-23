@@ -46,14 +46,14 @@ export default function Header() {
   return (
       <header className="flex justify-between">
         <Link to={'/'}
-              className="flex items-center gap-1 border p-2 rounded-full shadow shadow-gray-300">
-          <img src={logo} alt="WanderWise Logo" className="h-8 w-8"/>
-          <span className="font-bold text-xl">WanderWise</span>
+              className="flex items-center gap-1 p-2 border rounded-full shadow shadow-gray-300">
+          <img src={logo} alt="WanderWise Logo" className="w-8 h-8 sm:w-6 sm:h-6"/>
+          <span className="hidden text-xl font-bold md:block">WanderWise</span>
         </Link>
-        <div className="flex gap-2 border border-gray-300 rounded-full py-2 px-4 shadow shadow-gray-300">
-          <div className="text-center pt-1 ">Search</div>
+        <div className="flex gap-2 px-4 py-2 border border-gray-300 rounded-full shadow shadow-gray-300">
+          <div className="hidden pt-1 text-center md:block">Search</div>
           <button onClick={togglePopup}
-                  className="bg-primary text-white p-2 rounded-full">
+                  className="p-2 text-white rounded-full bg-primary">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                  viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
                  className="w-3 h-3">
@@ -63,9 +63,9 @@ export default function Header() {
           </button>
           {isOpen && (
               <div
-                  className="fixed inset-0 flex items-center justify-center z-50 ">
+                  className="fixed inset-0 z-50 flex items-center justify-center ">
                 <div
-                    className="bg-white p-8 rounded-lg shadow-2xl shadow-gray-500">
+                    className="p-8 bg-white rounded-lg shadow-2xl shadow-gray-500">
                   <div className="flex mb-4 border-gray-300">
                     <button
                         className={`flex-1 mr-2 py-2 px-4 font-bold ${
@@ -88,15 +88,15 @@ export default function Header() {
                   {activeTab === 1 && (
                       <div>
                         {/* Form 1 content */}
-                        <div className="py-3 px-4 ">
-                          <label className="ms-2 font-bold">What kind of stay
+                        <div className="px-4 py-3 ">
+                          <label className="font-bold ms-2">What kind of stay
                             are you looking for</label>
                           <input type="text" placeholder="beach, forest etc."
                                  value={kindOfStay}
                                  onChange={ev => setKindOfStay(
                                      ev.target.value)}/>
                         </div>
-                        <div className="py-3 px-4 ">
+                        <div className="px-4 py-3 ">
                           <label className="font-bold">Max Price: <span
                               className="text-gray-500">{maxPrice}</span></label>
                           <input
@@ -110,12 +110,12 @@ export default function Header() {
                         </div>
                         <div className="flex">
                           <button
-                              className=" bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-2xl"
+                              className="px-4 py-2 font-bold text-white bg-red-500 hover:bg-red-700 rounded-2xl"
                               onClick={handleInternalSearch}>
                             Search
                           </button>
                           <button
-                              className="ml-2 float-right bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-2xl"
+                              className="float-right px-4 py-2 ml-2 font-bold text-white bg-red-500 hover:bg-red-700 rounded-2xl"
                               onClick={togglePopup}
                           >
                             Close
@@ -127,8 +127,8 @@ export default function Header() {
                   {activeTab === 2 && (
                       <div>
                         {/* Form 2 content */}
-                        <div className="py-3 px-4 ">
-                          <label className="ms-2 font-bold">Where</label>
+                        <div className="px-4 py-3 ">
+                          <label className="font-bold ms-2">Where</label>
                           <input type="text"
                                  placeholder="Name of city, state, area etc."
                                  value={kindOfStay}
@@ -136,24 +136,24 @@ export default function Header() {
                                      ev.target.value)}/>
                         </div>
                         <div className="flex border-t border-b">
-                          <div className="py-3 px-4 ">
+                          <div className="px-4 py-3 ">
                             <label className="font-bold">Check-in: </label>
-                            <input className=" text-gray-500" type="date"
+                            <input className="text-gray-500 " type="date"
                                    value={checkIn}
                                    onChange={ev => setCheckIn(
                                        ev.target.value)}/>
                           </div>
-                          <div className="py-3 px-4 border-l">
+                          <div className="px-4 py-3 border-l">
                             <label className="font-bold">Check-out: </label>
-                            <input className=" text-gray-500" type="date"
+                            <input className="text-gray-500 " type="date"
                                    value={checkOut}
                                    onChange={ev => setCheckOut(
                                        ev.target.value)}/>
                           </div>
                         </div>
-                        <div className="py-3 px-4 ">
+                        <div className="px-4 py-3 ">
                           <label className="font-bold">Max Price: <span
-                              className=" text-gray-500">{maxPrice}</span></label>
+                              className="text-gray-500 ">{maxPrice}</span></label>
                           <input
                               className="w-full"
                               type="range"
@@ -163,7 +163,7 @@ export default function Header() {
                               onChange={ev => setMaxPrice(ev.target.value)}
                           />
                         </div>
-                        <div className="py-3 px-4 border-t">
+                        <div className="px-4 py-3 border-t">
                           <label className="font-bold">Number of guests:</label>
                           <input type="number" value={numberOfGuests}
                                  onChange={ev => setNumberOfGuests(
@@ -171,12 +171,12 @@ export default function Header() {
                         </div>
                         <div className="flex">
                           <button
-                              className=" bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-2xl"
+                              className="px-4 py-2 font-bold text-white bg-red-500 hover:bg-red-700 rounded-2xl"
                               onClick={handleAPISearch}>
                             Search
                           </button>
                           <button
-                              className="ml-2 float-right bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-2xl"
+                              className="float-right px-4 py-2 ml-2 font-bold text-white bg-red-500 hover:bg-red-700 rounded-2xl"
                               onClick={togglePopup}
                           >
                             Close
@@ -210,7 +210,7 @@ export default function Header() {
                     />
                   </svg>
                 </div>
-                <div className="ms-2 font-bold text-gray-700">Login</div>
+                <div className="font-bold text-gray-700 ms-2">Login</div>
               </div>
           )}
           {(!!user && user.profileImg) && (

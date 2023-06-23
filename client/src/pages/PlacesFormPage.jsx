@@ -143,15 +143,15 @@ export default function PlacesFormPage() {
               <Perks selected={perks} onChange={setPerks} user={user} isDisabled={isDisabled}/>
             </div>
 
-          {preInput('Address', 'Address to this place')}
+          {/* {preInput('Address', 'Address to this place')}
           <input type="text" placeholder="address"
                  value={address} disabled={isDisabled()}
                  onChange={ev => setAddress(ev.target.value)}/>
 
           {preInput('Photos', 'more = better')}
           <PhotosUploader addedPhotos={addedPhotos}
-                          onChange={setAddedPhotos} user={user}/>
-
+                          onChange={setAddedPhotos} user={user}/> */}
+{/* 
           {preInput('Description',
               'Describe the cool things of this place')}
           <textarea
@@ -163,7 +163,7 @@ export default function PlacesFormPage() {
               className="grid grid-cols-2 gap-2 mt-2 md:grid-cols-4 lg:grid-cols-6">
             <Perks selected={perks} onChange={setPerks} user={user}
                    isDisabled={isDisabled}/>
-          </div>
+          </div> */}
 
           {preInput('Extra Info', 'House rules etc.')}
           <textarea
