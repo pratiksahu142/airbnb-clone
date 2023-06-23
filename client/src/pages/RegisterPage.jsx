@@ -11,8 +11,8 @@ export default function RegisterPage() {
   const [userType, setUserType] = useState("user");
   const [businessName, setBusinessName] = useState("");
   const [businessContact, setBusinessContact] = useState("");
-  const [businessAddress, setbusinessAddress] = useState("");
-  const [businessWebsite, setbusinessWebsite] = useState("");
+  const [businessAddress, setBusinessAddress] = useState("");
+  const [businessWebsite, setBusinessWebsite] = useState("");
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
 
 //   const [registrationError, setRegistrationError] = useState(false);
@@ -54,11 +54,11 @@ export default function RegisterPage() {
   }
 
   return (
-      <div className="py-4 px-8 flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen px-8 py-4">
         <Header/>
-        <div className="mt-4 grow flex items-center justify-around">
+        <div className="flex items-center justify-around mt-4 grow">
           <div className="mb-64">
-            <h1 className="text-4xl text-center mb-4">Register</h1>
+            <h1 className="mb-4 text-4xl text-center">Register</h1>
             <form className="max-w-md mx-auto" onSubmit={registerUser}>
               <input
                   type="text"
@@ -103,22 +103,22 @@ export default function RegisterPage() {
                         type="text"
                         placeholder="Business Address"
                         value={businessAddress}
-                        onChange={(ev) => setbusinessAddress(ev.target.value)}
+                        onChange={(ev) => setBusinessAddress(ev.target.value)}
                     />
 
                     <input
                         type="text"
                         placeholder="Business Website"
                         value={businessWebsite}
-                        onChange={(ev) => setbusinessWebsite(ev.target.value)}
+                        onChange={(ev) => setBusinessWebsite(ev.target.value)}
                     />
                   </>
               )}
 
               <button className="primary">Register</button>
-              <div className="text-center py-2 text-gray-500">
+              <div className="py-2 text-center text-gray-500">
                 Already a member?{" "}
-                <Link className="underline text-black" to={"/login"}>
+                <Link className="text-black underline" to={"/login"}>
                   Login
                 </Link>
               </div>

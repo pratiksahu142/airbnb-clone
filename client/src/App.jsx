@@ -20,6 +20,8 @@ import UsersPage from './admin-pages/UsersPage';
 import NewUserPage from './admin-pages/NewUserPage';
 import EditUserPage from './admin-pages/EditUserPage';
 import SearchInPage from "./pages/SearchInPage";
+import NewOwnerPage from './admin-pages/NewOwnerPage';
+import EditOwnerPage from './admin-pages/EditOwnerPage';
 
 axios.defaults.baseURL = "http://localhost:4000";
 axios.defaults.withCredentials = true;
@@ -79,6 +81,22 @@ function App() {
               element={
                 <AuthGuard allowedUserTypes={["admin"]}>
                   <EditUserPage/>
+                </AuthGuard>
+              }
+          />
+          <Route
+              path="/a/owners/new"
+              element={
+                <AuthGuard allowedUserTypes={["admin"]}>
+                  <NewOwnerPage/>
+                </AuthGuard>
+              }
+          />
+          <Route
+              path="/a/owners/edit/:id"
+              element={
+                <AuthGuard allowedUserTypes={["admin"]}>
+                  <EditOwnerPage/>
                 </AuthGuard>
               }
           />
