@@ -405,6 +405,9 @@ app.get("/user-places", (req, res) => {
   const { token } = req.cookies;
   jwt.verify(token, jwtSecret, {}, async (err, userData) => {
     // const {id} = userData.id;
+    if (err) {
+      throw err;
+    }
     res.json(await Place.find({ owner: userData.id }));
   });
 });
