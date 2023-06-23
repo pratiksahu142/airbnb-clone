@@ -1,7 +1,8 @@
 import {Link, Navigate} from "react-router-dom";
-import {useState} from "react";
+import {useState, useContext} from "react";
 import axios from "axios";
 import Header from "../Header";
+import {UserContext} from "../UserContext.jsx";
 
 export default function RegisterPage() {
   //   const [redirect, setRedirect] = useState(null);
@@ -14,6 +15,11 @@ export default function RegisterPage() {
   const [businessAddress, setBusinessAddress] = useState("");
   const [businessWebsite, setBusinessWebsite] = useState("");
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
+  const {user} = useContext(UserContext);
+
+  if (user) {
+    return <Navigate to={"/"}/>;
+  }
 
 //   const [registrationError, setRegistrationError] = useState(false);
 
