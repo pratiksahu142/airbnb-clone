@@ -42,12 +42,14 @@ export default function AdminLoginPage() {
                 type="email"
                 placeholder="your@email.com"
                 value={email}
+                required
                 onChange={(ev) => setEmail(ev.target.value)}
             />
             <input
                 type="password"
                 placeholder="password"
                 value={password}
+                required
                 onChange={(ev) => setPassword(ev.target.value)}
             />
             <button className="primary">Login</button>
