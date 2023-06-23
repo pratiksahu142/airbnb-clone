@@ -319,7 +319,12 @@ app.post("/a/login", async (req, res) => {
           if (err) {
             throw err;
           }
-          res.cookie("token", token).json(userDoc);
+          res.cookie("token", token, {
+            // expires: new Date(Date.now() + (3600 * 1000 * 24 * 180 * 1)),
+            httpOnly: true,
+            sameSite: "none",
+            secure: "false",
+        }).json(userDoc);
         }
       );
     } else {
