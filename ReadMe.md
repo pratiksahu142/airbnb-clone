@@ -26,3 +26,4 @@
 - yarn add multer
 - yarn add api --save
 - yarn add axios
+- yarn add @aws-sdk/client-s3

@@ -10,6 +10,7 @@ export default function PhotosUploader({addedPhotos, onChange, user}) {
       link: photoLink,
     });
     onChange((prev) => {
+      console.log('***',filename)
       return [...prev, filename];
     });
     setPhotoLink("");
@@ -74,7 +75,7 @@ export default function PhotosUploader({addedPhotos, onChange, user}) {
                   <div className="relative flex h-32" key={link}>
                     <img
                         className="object-cover w-full rounded-2xl"
-                        src={"http://localhost:4000/uploads/" + link}
+                        src={link}
                         alt=""
                     />
                     {user && user.userType !== "admin" && (

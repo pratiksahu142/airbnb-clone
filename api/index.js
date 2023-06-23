@@ -10,15 +10,17 @@ const Booking = require("./models/Booking");
 const BusinessOwner = require("./models/BusinessOwner");
 const cookieParser = require("cookie-parser");
 const imageDownloader = require("image-downloader");
+const {S3Client, PutObjectCommand} = require('@aws-sdk/client-s3');
 const multer = require("multer");
 const fs = require("fs");
+const mime = require('mime-types');
 const axios = require("axios");
 require("dotenv").config();
 const app = express();
-
+const photosMiddleware = multer({dest:'/tmp'});
 const bcryptSalt = bcrypt.genSaltSync(12);
 const jwtSecret = "djfnrkjvbwc";
-const photosMiddleware = multer({ dest: "uploads" });
+const bucket = 'airbnb-clone-uploads';
 mongoose.connect(process.env.MONGO_URL);
 
 app.use(express.json());
@@ -30,6 +32,27 @@ app.use(
     origin: ["http://localhost:3000", "http://localhost:5173"],
   })
 );
+
+async function uploadToS3(path, originalFilename, mimetype) {
+  const client = new S3Client({
+    region: 'us-east-1',
+    credentials: {
+      accessKeyId: process.env.S3_ACCESS_KEY,
+      secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+    },
+  });
+  const parts = originalFilename.split('.');
+  const ext = parts[parts.length - 1];
+  const newFilename = Date.now() + '.' + ext;
+  await client.send(new PutObjectCommand({
+    Bucket: bucket,
+    Body: fs.readFileSync(path),
+    Key: newFilename,
+    ContentType: mimetype,
+    ACL: 'public-read',
+  }));
+  return `https://${bucket}.s3.amazonaws.com/${newFilename}`;
+}
 
 function getUserDataFromRequest(req) {
   return new Promise((resolve, reject) => {
@@ -311,39 +334,35 @@ app.post("/logout", (req, res) => {
 });
 
 app.post("/upload-by-link", async (req, res) => {
-  const { link } = req.body;
-  const newName = "photo" + Date.now() + ".jpg";
+  const {link} = req.body;
+  const newName = 'photo' + Date.now() + '.jpg';
   await imageDownloader.image({
     url: link,
-    dest: __dirname + "/uploads/" + newName,
+    dest: '/tmp/' +newName,
   });
-  res.json(newName);
+  const url = await uploadToS3('/tmp/' +newName, newName, mime.lookup('/tmp/' +newName));
+  console.log(url)
+  res.json(url);
 });
 
-app.post("/upload", photosMiddleware.array("photos", 100), (req, res) => {
+
+app.post("/upload", photosMiddleware.array("photos", 100), async (req, res) => {
   const uploadedFiles = [];
   for (let i = 0; i < req.files.length; i++) {
-    const { path, originalname } = req.files[i];
-    const parts = originalname.split(".");
-    const extension = parts[1];
-    const newPath = path + "." + extension;
-    fs.renameSync(path, newPath);
-    uploadedFiles.push(newPath.replace("uploads/", ""));
+    const {path,originalname,mimetype} = req.files[i];
+    const url = await uploadToS3(path, originalname, mimetype);
+    uploadedFiles.push(url);
   }
   res.json(uploadedFiles);
 });
 
 app.post(
   "/upload-profile-img",
-  photosMiddleware.array("photos", 100),
-  (req, res) => {
-    const { path, originalname } = req.files[0];
-    const parts = originalname.split(".");
-    const ext = parts[parts.length - 1];
-    const newPath = path + "." + ext;
-    fs.renameSync(path, newPath);
-    const profileImg = newPath.replace("uploads/", "");
-    res.json(profileImg);
+  photosMiddleware.array("photos", 1),
+  async (req, res) => {
+    const {path,originalname,mimetype} = req.files[0];
+    const url = await uploadToS3(path, originalname, mimetype);
+    res.json(url);
   }
 );
 

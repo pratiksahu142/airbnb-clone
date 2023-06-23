@@ -23,8 +23,8 @@ export default function PlaceGallery({place}) {
             </div>
             <div className="flex flex-row flex-wrap gap-4 p-8">
               {place?.photos?.length > 0 && place.photos.map(photo => (
-                  <div className="w-64 lg:w-80 sm:w-48" key={photo._id}>
-                    <img src={'http://localhost:4000/uploads/' + photo} alt="" className="object-cover w-full h-full aspect-square"/>
+                  <div className="w-full" key={photo._id}>
+                    <img src={photo} alt="" className="object-cover w-full h-full aspect-square"/>
                   </div>
               ))}
           </div>
@@ -42,7 +42,7 @@ export default function PlaceGallery({place}) {
                 <div>
                   <img onClick={() => setShowAllPhotos(true)}
                        className="object-cover cursor-pointer aspect-square"
-                       src={'http://localhost:4000/uploads/' + place.photos[0]}
+                       src={place.photos[0]}
                        alt=""/>
                 </div>
             )}
@@ -51,14 +51,14 @@ export default function PlaceGallery({place}) {
             {place.photos?.[1] && (
                 <img onClick={() => setShowAllPhotos(true)}
                      className="object-cover cursor-pointer aspect-square"
-                     src={'http://localhost:4000/uploads/' + place.photos[1]}
+                     src={place.photos[1]}
                      alt=""/>
             )}
             <div className="overflow-hidden">
               {place.photos?.[2] && (
                   <img onClick={() => setShowAllPhotos(true)}
                        className="relative object-cover cursor-pointer aspect-square top-2"
-                       src={'http://localhost:4000/uploads/' + place.photos[2]}
+                       src={place.photos[2]}
                        alt=""/>
               )}
             </div>
