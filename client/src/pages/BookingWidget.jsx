@@ -27,6 +27,9 @@ export default function BookingWidget({place}) {
   }
 
   async function bookThisPlace() {
+    if(!user) {
+      setRedirect('/login');
+    }
     if (user && checkIn && checkOut && name && phone) {
       const response = await axios.post('/bookings', {
         place: place._id,
