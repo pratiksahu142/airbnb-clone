@@ -70,18 +70,21 @@ export default function RegisterPage() {
                   type="text"
                   placeholder="John Doe"
                   value={name}
+                  required
                   onChange={(ev) => setName(ev.target.value)}
               />
               <input
                   type="email"
                   placeholder="your@email.com"
                   value={email}
+                  required
                   onChange={(ev) => setEmail(ev.target.value)}
               />
               <input
                   type="password"
                   placeholder="password"
                   value={password}
+                  required
                   onChange={(ev) => setPassword(ev.target.value)}
               />
               <select onChange={(ev) => setUserType(ev.target.value)}>

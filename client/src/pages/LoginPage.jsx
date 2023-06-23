@@ -32,7 +32,7 @@ export default function LoginPage() {
   }
 
   return (
-      <div className="py-4 px-8 flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen px-8 py-4">
         <Header/>
 
         <div className="flex items-center justify-around mt-4 grow">
@@ -43,15 +43,17 @@ export default function LoginPage() {
                   type="email"
                   placeholder="your@email.com"
                   value={email}
+                  required
                   onChange={(ev) => setEmail(ev.target.value)}
               />
               <input
                   type="password"
                   placeholder="password"
                   value={password}
+                  required
                   onChange={(ev) => setPassword(ev.target.value)}
               />
-              <select onChange={(ev) => setUserType(ev.target.value)}>
+              <select onChange={(ev) => setUserType(ev.target.value)} required>
                 <option value="user">User</option>
                 <option value="business">Business Owner</option>
               </select>
