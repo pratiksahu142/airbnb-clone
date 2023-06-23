@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const UserForm = ({handleSubmit, email, setEmail, name, setName, title, password, setPassword}) => {
 
   return (
@@ -26,6 +28,11 @@ const UserForm = ({handleSubmit, email, setEmail, name, setName, title, password
         <button className="mt-5 primary" type="submit">
           Save
         </button>
+        <Link to={"/a/users"}>
+          <button className="mt-2 secondary" type="button">
+            Back
+          </button>
+        </Link>
       </form>
     </div>
   );

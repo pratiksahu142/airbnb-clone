@@ -5,7 +5,7 @@
 input[type="text"], input[type="password"],
 input[type="email"], input[type="number"], input[type="tel"],
 select, textarea {
-  @apply w-full border my-1 py-2 px-3 rounded-2xl ;
+  @apply w-full px-3 py-2 my-1 border rounded-2xl ;
 }
 
 textarea {
@@ -18,7 +18,12 @@ button {
 
 button.primary {
   background-color: #F5385D;
-  @apply bg-primary p-2 w-full text-white rounded-2xl;
+  @apply w-full p-2 text-white bg-primary rounded-2xl;
+}
+
+button.secondary {
+  background-color: #5c6370;
+  @apply w-full p-2 text-white bg-secondary rounded-2xl;
 }
 
 .btn-small {

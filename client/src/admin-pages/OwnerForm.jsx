@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const OwnerForm = ({
     handleSubmit,
     email,
@@ -70,6 +72,11 @@ const OwnerForm = ({
           <button className="mt-5 primary" type="submit">
             Save
           </button>
+          <Link to={"/a/users"}>
+          <button className="mt-2 secondary" type="button">
+            Back
+          </button>
+        </Link>
         </form>
       </div>
     );
