@@ -15,7 +15,7 @@ const EditUserPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Handle form submission logic here, such as sending the data to an API
-    const response = await axios.put("/a/users", {
+    const response = await axios.put("/a/users/user", {
       id,
       name,
       email,
@@ -28,7 +28,7 @@ const EditUserPage = () => {
   const fetchUserData = async () => {
     try {
       console.log(id);
-      const response = await axios.get(`/a/users/${id}`);
+      const response = await axios.get(`/a/users/user/${id}`);
       console.log(response);
       if (response.data) {
         setName(response.data.name);

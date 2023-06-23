@@ -14,7 +14,7 @@ const NewUserPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Handle form submission logic here, such as sending the data to an API
-    await axios.post("/a/users", {
+    await axios.post("/a/users/user", {
       name,
       email,
       password,

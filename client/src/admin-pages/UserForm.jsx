@@ -1,7 +1,7 @@
 const UserForm = ({handleSubmit, email, setEmail, name, setName, title, password, setPassword}) => {
 
   return (
-    <div className="max-w-md mx-auto">
+    <div className="max-w-lg mx-auto">
       <h2 className="mb-4 text-2xl font-bold">{title}</h2>
       <form onSubmit={handleSubmit} className="">
           <input

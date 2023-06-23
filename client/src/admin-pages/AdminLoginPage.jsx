@@ -2,6 +2,7 @@ import {Navigate} from "react-router-dom";
 import {useContext, useState} from "react";
 import axios from "axios";
 import {UserContext} from "../UserContext.jsx";
+import Header from "../Header.jsx";
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState("");
@@ -30,6 +31,9 @@ export default function AdminLoginPage() {
   }
 
   return (
+    <div className="flex flex-col min-h-screen px-8 py-4">
+      <Header/>
+
       <div className="flex items-center justify-around mt-4 grow">
         <div className="mb-64">
           <h1 className="mb-4 text-4xl text-center">Admin Login</h1>
@@ -50,5 +54,6 @@ export default function AdminLoginPage() {
           </form>
         </div>
       </div>
+    </div>
   );
 }

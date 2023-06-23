@@ -7,15 +7,31 @@ import Header from "../Header";
 
 export default function UsersPage() {
   const [users, setUsers] = useState([]);
-  useEffect(() => {
-    axios.get("/a/users").then((response) => {
+  
+  function fetchUsers() {
+    axios.get("/a/users/user").then((response) => {
       setUsers(response.data);
     });
+  }
+  useEffect(() => {
+    fetchUsers();
   }, []);
 
-  function deleteUser(id) {
-    // ev.preventDefault();
-    console.log(id);
+  function handleDeleteUser(id) {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this user?"
+    );
+    if (confirmDelete) {
+      axios
+        .delete(`/a/users/user/${id}`)
+        .then((response) => {
+          console.log("user deleted successfully");
+          fetchUsers();
+        })
+        .catch((error) => {
+          console.error("An error occurred while deleting the user", error);
+        });
+    }
   }
 
   return (
@@ -92,20 +108,11 @@ export default function UsersPage() {
                                   {user.email}
                                 </p>
                               </td>
-                              {/* <td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                            <span className="relative inline-block px-3 py-1 font-semibold leading-tight text-green-900">
-                              <span
-                                aria-hidden
-                                className="absolute inset-0 bg-green-200 rounded-full opacity-50"
-                              ></span>
-                              <span className="relative">Paid</span>
-                            </span>
-                          </td> */}
                               <td className="px-2 py-2 mb-6 text-sm text-right bg-white border-b border-gray-200">
                                 <button
                                     type="button"
                                     className="inline-block text-gray-500 hover:text-gray-700"
-                                    onClick={() => deleteUser(user._id)}
+                                    onClick={() => handleDeleteUser(user._id)}
                                 >
                                   <svg
                                       xmlns="http://www.w3.org/2000/svg"
