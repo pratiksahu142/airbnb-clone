@@ -11,7 +11,7 @@ export default function PlaceGallery({place}) {
               <h2 className="mr-20 text-2xl md:mr-36 ms-10">Photos
                 of {place.title}</h2>
               <button onClick={() => setShowAllPhotos(false)}
-                      className="absolute flex gap-1 px-4 py-2 text-black bg-white shadow right-9 top-5 rounded-2xl shadow-black">
+                      className="fixed flex gap-1 px-4 py-2 text-black bg-white shadow right-9 top-5 rounded-2xl shadow-black">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                      fill="currentColor" className="w-6 h-6">
                   <path fillRule="evenodd"
