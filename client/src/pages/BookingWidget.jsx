@@ -6,8 +6,8 @@ import {UserContext} from "../UserContext";
 
 export default function BookingWidget({place}) {
 
-  const [checkIn, setCheckIn] = useState(false);
-  const [checkOut, setCheckOut] = useState(false);
+  const [checkIn, setCheckIn] = useState('');
+  const [checkOut, setCheckOut] = useState('');
   const [numberOfGuests, setNumberOfGuests] = useState(1);
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');

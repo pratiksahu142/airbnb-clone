@@ -85,10 +85,9 @@ export default function SearchAPIPage() {
             </div>
           </div>
 
-          <div
-              className="mt-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-8">
-            {places.length > 0 && places.map(place => (
-                <div>
+          <div className="mt-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-8">
+            {places.length > 0 ? (places.map(place => (
+                <div key={place.id}>
                   <Link to={'/search/api/detail/' + place.id}>
                     <div className="bg-gray-500 mb-2 rounded-2xl flex">
                       {place.photo && (
@@ -119,7 +118,15 @@ export default function SearchAPIPage() {
                     </svg>
                   </div>
                 </div>
-            ))}
+            ))) : (
+                <div className="flex flex-col items-center justify-center mt-8">
+                  <img src="nosearch2.png" alt="No search results"/>
+                  <button onClick={reloadPage}
+                          className="bg-transparent text-primary underline">Try
+                    refresh!
+                  </button>
+                </div>
+            )}
           </div>
         </div>
       </div>

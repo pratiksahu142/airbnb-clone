@@ -7,6 +7,7 @@ export default function SearchAPIDetailPage() {
   const { id } = useParams();
   const [place, setPlace] = useState(null);
   const [showAllPhotos, setShowAllPhotos] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (id) {
@@ -19,6 +20,7 @@ export default function SearchAPIDetailPage() {
           });
           setPlace(response.data);
           console.log(response.data);
+          setLoading(false);
         } catch (error) {
           // Handle the error
           console.error(error);
@@ -27,6 +29,15 @@ export default function SearchAPIDetailPage() {
       fetchData();
     }
   }, [id]);
+
+  if (loading) {
+    return (
+        <div className="flex items-center justify-center h-screen">
+          <div
+              className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-gray-900"></div>
+        </div>
+    );
+  }
 
   if (!place) {
     return "";

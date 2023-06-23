@@ -2,14 +2,14 @@ import React, {useContext, useState} from 'react';
 import {Link, Navigate} from "react-router-dom";
 import {UserContext} from "./UserContext";
 import Image from "./Image.jsx";
-import logo from './assets/pocket.svg';
+import logo from '../public/pocket.svg';
 
 export default function Header() {
   const {user} = useContext(UserContext);
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(1);
-  const [checkIn, setCheckIn] = useState(false);
-  const [checkOut, setCheckOut] = useState(false);
+  const [checkIn, setCheckIn] = useState('');
+  const [checkOut, setCheckOut] = useState('');
   const [numberOfGuests, setNumberOfGuests] = useState(1);
   const [kindOfStay, setKindOfStay] = useState('');
   const [maxPrice, setMaxPrice] = useState(200);
@@ -23,6 +23,25 @@ export default function Header() {
 
   const handleTabClick = (tabIndex) => {
     setActiveTab(tabIndex);
+  };
+
+  const handleCheckInChange = (ev) => {
+    const selectedCheckIn = ev.target.value;
+    const today = new Date().toISOString().split("T")[0];
+    if (selectedCheckIn >= today) {
+      setCheckIn(selectedCheckIn);
+    } else {
+      alert("Check-in date cannot be from the past");
+    }
+  };
+
+  const handleCheckOutChange = (ev) => {
+    const selectedCheckOut = ev.target.value;
+    if (checkIn < selectedCheckOut) {
+      setCheckOut(selectedCheckOut);
+    } else {
+      alert("Check-out date cannot be before the check-in date");
+    }
   };
 
   async function handleAPISearch() {
@@ -140,15 +159,13 @@ export default function Header() {
                             <label className="font-bold">Check-in: </label>
                             <input className="text-gray-500 " type="date"
                                    value={checkIn}
-                                   onChange={ev => setCheckIn(
-                                       ev.target.value)}/>
+                                   onChange={handleCheckInChange}/>
                           </div>
                           <div className="px-4 py-3 border-l">
                             <label className="font-bold">Check-out: </label>
                             <input className="text-gray-500 " type="date"
                                    value={checkOut}
-                                   onChange={ev => setCheckOut(
-                                       ev.target.value)}/>
+                                   onChange={handleCheckOutChange}/>
                           </div>
                         </div>
                         <div className="px-4 py-3 ">
