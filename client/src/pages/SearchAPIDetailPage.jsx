@@ -92,7 +92,7 @@ export default function SearchAPIDetailPage() {
             <div className="flex flex-row flex-wrap gap-4 p-8">
               {place?.photos?.length > 0 &&
                 place.photos.map((photo, index) => (
-                  <div className="w-64 lg:w-80 sm:w-48" key={index}>
+                  <div className="w-full" key={index}>
                     <img
                       src={photo}
                       alt=""
