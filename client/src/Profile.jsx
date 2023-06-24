@@ -125,7 +125,7 @@ export default function Profile({setRedirect, setUser, user}) {
                         />
                         <Image
                             className="object-cover w-24 h-24 rounded-full md:h-64 md:w-64"
-                            src={user.profileImg}
+                            src={profileImg}
                             alt=""
                         />
                       </label>

@@ -120,12 +120,14 @@ export default function PlacesFormPage() {
             <input type="text"
                    placeholder="title, for example: My lovely apartment"
                    value={title} disabled={isDisabled()}
-                   onChange={ev => setTitle(ev.target.value)}/>
+                   onChange={ev => setTitle(ev.target.value)}
+            required/>
 
             {preInput('Address', 'Address to this place')}
             <input type="text" placeholder="address"
                    value={address} disabled={isDisabled()}
-                   onChange={ev => setAddress(ev.target.value)}/>
+                   onChange={ev => setAddress(ev.target.value)}
+                   required/>
 
             {preInput('Photos', 'more = better')}
             <PhotosUploader addedPhotos={addedPhotos}
@@ -135,35 +137,13 @@ export default function PlacesFormPage() {
                 'Describe the cool things of this place')}
             <textarea
                 value={description} disabled={isDisabled()}
-                onChange={ev => setDescription(ev.target.value)}></textarea>
+                onChange={ev => setDescription(ev.target.value)} required></textarea>
 
             {preInput('Perks', 'Select all the perks')}
             <div
                 className="grid grid-cols-2 gap-2 mt-2 md:grid-cols-4 lg:grid-cols-6">
               <Perks selected={perks} onChange={setPerks} user={user} isDisabled={isDisabled}/>
             </div>
-
-          {/* {preInput('Address', 'Address to this place')}
-          <input type="text" placeholder="address"
-                 value={address} disabled={isDisabled()}
-                 onChange={ev => setAddress(ev.target.value)}/>
-
-          {preInput('Photos', 'more = better')}
-          <PhotosUploader addedPhotos={addedPhotos}
-                          onChange={setAddedPhotos} user={user}/> */}
-{/* 
-          {preInput('Description',
-              'Describe the cool things of this place')}
-          <textarea
-              value={description} disabled={isDisabled()}
-              onChange={ev => setDescription(ev.target.value)}></textarea>
-
-          {preInput('Perks', 'Select all the perks')}
-          <div
-              className="grid grid-cols-2 gap-2 mt-2 md:grid-cols-4 lg:grid-cols-6">
-            <Perks selected={perks} onChange={setPerks} user={user}
-                   isDisabled={isDisabled}/>
-          </div> */}
 
           {preInput('Extra Info', 'House rules etc.')}
           <textarea
@@ -177,25 +157,25 @@ export default function PlacesFormPage() {
               <h3 className="mt-2 -mb-1">Checkin Time</h3>
               <input type="text" placeholder="12:00"
                      value={checkIn} disabled={isDisabled()}
-                     onChange={ev => setCheckIn(ev.target.value)}/>
+                     onChange={ev => setCheckIn(ev.target.value)} required/>
             </div>
             <div>
               <h3 className="mt-2 -mb-1">Checkout Time</h3>
               <input type="text" placeholder="11:00"
                      value={checkOut} disabled={isDisabled()}
-                     onChange={ev => setCheckOut(ev.target.value)}/>
+                     onChange={ev => setCheckOut(ev.target.value)} required/>
             </div>
             <div>
               <h3 className="mt-2 -mb-1">Maximum number of guests</h3>
               <input type="number"
                      value={maxGuests} disabled={isDisabled()}
-                     onChange={ev => setMaxGuests(ev.target.value)}/>
+                     onChange={ev => setMaxGuests(ev.target.value)} required/>
             </div>
             <div>
-              <h3 className="mt-2 -mb-1">Price per night</h3>
+              <h3 className="mt-2 -mb-1">Price per night in USD($)</h3>
               <input type="number"
                      value={price} disabled={isDisabled()}
-                     onChange={ev => setPrice(ev.target.value)}/>
+                     onChange={ev => setPrice(ev.target.value)} required/>
             </div>
           </div>
           {(user && user.userType !== 'admin') && (
