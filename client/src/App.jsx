@@ -23,7 +23,7 @@ import SearchInPage from "./pages/SearchInPage";
 import NewOwnerPage from './admin-pages/NewOwnerPage';
 import EditOwnerPage from './admin-pages/EditOwnerPage';
 
-axios.defaults.baseURL = "https://wanderwise-app.onrender.com";
+axios.defaults.baseURL = "http://localhost:4000";
 axios.defaults.withCredentials = true;
 
 function App() {

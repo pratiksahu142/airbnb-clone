@@ -11,12 +11,14 @@ const UserForm = ({handleSubmit, email, setEmail, name, setName, title, password
               value={name}
               placeholder="John Doe"
               onChange={(e) => setName(e.target.value)}
+              required
           />
           <input
               type="email"
               value={email}
               placeholder="johndoe@email.com"
               onChange={(e) => setEmail(e.target.value)}
+              required
           />
           <input
               type="password"
