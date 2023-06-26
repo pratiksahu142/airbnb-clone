@@ -208,7 +208,11 @@ app.put("/profile", photosMiddleware.array("photos", 100), async (req, res) => {
         });
       }
     } else {
-      userDoc = await User.findById(userData.id);
+      if(userData.userType === 'admin') {
+        userDoc = await Admin.findById(userData.id);
+      } else {
+        userDoc = await User.findById(userData.id);
+      }
       const { name, email, password, profileImg } = req.body;
 
       if (password.trim()) {
@@ -240,12 +244,7 @@ app.put("/profile", photosMiddleware.array("photos", 100), async (req, res) => {
         if (err) {
           throw err;
         }
-        res.cookie("token", token, {
-          // expires: new Date(Date.now() + (3600 * 1000 * 24 * 180 * 1)),
-          httpOnly: true,
-          sameSite: "none",
-          secure: "false",
-      }).json(userDoc);
+        res.cookie("token", token).json(userDoc);
       }
     );
   });
@@ -292,12 +291,7 @@ app.post("/login/:userType", async (req, res) => {
           if (err) {
             throw err;
           }
-          res.cookie("token", token, {
-            // expires: new Date(Date.now() + (3600 * 1000 * 24 * 180 * 1)),
-            httpOnly: true,
-            sameSite: "none",
-            secure: "false",
-          }).json(userDoc);
+          res.cookie("token", token).json(userDoc);
         }
       );
     } else {
@@ -329,12 +323,7 @@ app.post("/a/login", async (req, res) => {
           if (err) {
             throw err;
           }
-          res.cookie("token", token, {
-            // expires: new Date(Date.now() + (3600 * 1000 * 24 * 180 * 1)),
-            httpOnly: true,
-            sameSite: "none",
-            secure: "false",
-        }).json(userDoc);
+          res.cookie("token", token).json(userDoc);
         }
       );
     } else {
@@ -346,8 +335,8 @@ app.post("/a/login", async (req, res) => {
 });
 
 app.post("/logout", (req, res) => {
-  // res.cookie("token", "").json(true);
-  res.clearCookie("token").json(true);
+  res.cookie("token", "").json(true);
+  // res.clearCookie("token").json(true);
 });
 
 app.post("/upload-by-link", async (req, res) => {
