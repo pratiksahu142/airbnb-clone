@@ -1,3 +1,7 @@
+## Application is deployed here: https://master--roaring-lollipop-68e43f.netlify.app/login
+
+This project is as part of submission for web development course. Project idea is similar to Airbnb.
+
 - brew install vite
 - brew install yarn
 - yarn create vite client
